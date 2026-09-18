@@ -94,12 +94,14 @@
     .exp-badge { background: #1e3a5f; color: #93c5fd; border-color: #1d4ed8; }
   }
 
-  /* LinkedIn source badge override */
-  .src-linkedin {
-    background: #dbeafe; color: #1d4ed8;
-  }
+  /* Per-source badge colour overrides */
+  .src-linkedin    { background: #dbeafe; color: #1d4ed8; }
+  .src-yc          { background: #fff7ed; color: #c2410c; }
+  .src-wellfound   { background: #f0fdf4; color: #15803d; }
   @media (prefers-color-scheme: dark) {
-    .src-linkedin { background: #1e3a5f; color: #93c5fd; }
+    .src-linkedin  { background: #1e3a5f; color: #93c5fd; }
+    .src-yc        { background: #431407; color: #fb923c; }
+    .src-wellfound { background: #14532d; color: #86efac; }
   }
 
   footer { margin-top: 40px; color: var(--muted); font-size: 0.78rem; border-top: 1px solid var(--border); padding-top: 12px; }
@@ -108,27 +110,69 @@
 <body>
   <h1 class="header-title">📋 Daily Job Digest</h1>
   <p class="header-meta">
-    Friday, 18 September 2026 &nbsp;·&nbsp; 30 jobs across 3 positions
+    Friday, 18 September 2026 &nbsp;·&nbsp; 132 jobs across 5 positions
     &nbsp;·&nbsp; <span class="exp-badge">0–2 yrs exp</span>
     &nbsp;·&nbsp; 🇮🇳 On-site India &nbsp;·&nbsp; 🌐 Remote worldwide
-    &nbsp;·&nbsp; Generated 2026-09-18T18:25:43.965653Z
+    &nbsp;·&nbsp; Generated 2026-09-18T18:51:24.511000Z
   </p>
 
   
   <section class="position-block" style="--accent:#2563eb">
     <h2>
       <span class="pos-title">Java Developer</span>
-      <span class="count">7 jobs</span>
+      <span class="count">20 jobs</span>
     </h2>
     
       <table>
         <tr><th>Title</th><th>Company</th><th>Location</th><th>Source</th></tr>
         
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/core-java-backend-developer-springboot-microservice-at-talentgigs-4467840810" target="_blank">Core java backend developer - Springboot microservice</a></td>
-        <td>Talentgigs</td>
+        <td class="title"><a href="https://weworkremotely.com/remote-jobs/twikey-java-developer" target="_blank">Twikey: Java Developer</a></td>
+        <td>Twikey</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">We Work Remotely</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/java-developer-microservices-spring-boot-api-development-cloud-aws-azure-performance-tuning-at-synechron-4467550382" target="_blank">Java Developer | Microservices, Spring Boot, API Development, Cloud (AWS/Azure), Performance Tuning</a></td>
+        <td>Synechron</td>
+        <td>🇮🇳 Pune Division, Maharashtra, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/java-developer-at-tata-consultancy-services-4467556195" target="_blank">Java Developer</a></td>
+        <td>Tata Consultancy Services</td>
+        <td>🇮🇳 Hyderabad, Telangana, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-java-developer-vois-at-vois-4466285046" target="_blank">Senior Java Developer - VOIS</a></td>
+        <td>VOIS</td>
+        <td>🇮🇳 Pune Division, Maharashtra, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/java-developer-at-persistent-systems-4468375143" target="_blank">Java Developer</a></td>
+        <td>Persistent Systems</td>
+        <td>🇮🇳 Hyderabad, Telangana, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senir-java-developer-at-greathr-solutions-4468864743" target="_blank">Senir Java Developer</a></td>
+        <td>GreatHR Solutions</td>
         <td>🇮🇳 Chennai, Tamil Nadu, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/in-senior-associate-java-backend-developer-gcc-advisory-hyderabad-at-pwc-india-4467170805" target="_blank">IN_Senior Associate_ Java Backend Developer_GCC_Advisory_Hyderabad</a></td>
+        <td>PwC India</td>
+        <td>🇮🇳 Greater Hyderabad Area</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://jobicy.com/jobs/146254-atlassian-administrator-1726" target="_blank">Atlassian Administrator 1726</a></td>
+        <td>Softgic</td>
+        <td>🌐 Anywhere</td>
+        <td><span class="src-badge ">Jobicy</span></td>
       </tr>
       <tr>
         <td class="title"><a href="https://in.linkedin.com/jobs/view/java-backend-developer-only-trivandrum-at-ust-4466668391" target="_blank">Java Backend Developer-Only Trivandrum</a></td>
@@ -137,15 +181,27 @@
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/java-backend-developer-at-zensar-technologies-4467845201" target="_blank">Java backend developer</a></td>
-        <td>Zensar Technologies</td>
-        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/java-backend-developer-at-creospan-private-limited-4460977847" target="_blank">Java Backend Developer</a></td>
+        <td>Creospan Private Limited</td>
+        <td>🇮🇳 Pune District, Maharashtra, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-software-engineer-java-springboot-saas-at-celonis-4434525582" target="_blank">Senior Software Engineer - Java, Springboot, SAAS</a></td>
-        <td>Celonis</td>
-        <td>🇮🇳 Greater Bengaluru Area</td>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-java-backend-developer-at-bnp-paribas-4400540503" target="_blank">Senior Java Backend Developer</a></td>
+        <td>BNP Paribas</td>
+        <td>🇮🇳 Chennai, Tamil Nadu, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/java-backend-developer-at-citi-4467801657" target="_blank">Java Backend Developer</a></td>
+        <td>Citi</td>
+        <td>🇮🇳 Pune Division, Maharashtra, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/staff-software-engineer-ii-java-microservices-springboot-cloud-at-blue-yonder-4455968483" target="_blank">Staff Software Engineer II - Java, Microservices, Springboot &amp; Cloud</a></td>
+        <td>Blue Yonder</td>
+        <td>🇮🇳 Hyderabad, Telangana, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
@@ -155,9 +211,9 @@
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-development-engineer-3-java-at-adobe-4467854395" target="_blank">Software Development Engineer 3 - Java</a></td>
-        <td>Adobe</td>
-        <td>🇮🇳 Bengaluru East, Karnataka, India</td>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/sde-ii-java-backend-issuance-at-nium-4468633333" target="_blank">SDE II - Java Backend : Issuance</a></td>
+        <td>Nium</td>
+        <td>🇮🇳 Mumbai, Maharashtra, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
@@ -166,16 +222,40 @@
         <td>🇮🇳 Bengaluru East, Karnataka, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-software-engineer-java-at-teamviewer-4459685129" target="_blank">Senior Software Engineer - Java</a></td>
+        <td>TeamViewer</td>
+        <td>🇮🇳 Noida, Uttar Pradesh, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/sr-software-engineer-java-job-at-yash-technologies-4467555390" target="_blank">Sr. Software Engineer - Java Job</a></td>
+        <td>YASH Technologies</td>
+        <td>🇮🇳 Pune Division, Maharashtra, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://wellfound.com/jobs/senior-software-engineer-developer-experience-and-reliability-ai-native" target="_blank">Senior Software Engineer, Developer Experience and Reliability (AI-Native)</a></td>
+        <td>Pico MES</td>
+        <td>🌐 Remote / Portland</td>
+        <td><span class="src-badge src-wellfound">Wellfound</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://wellfound.com/jobs/senior-shopify-developer" target="_blank">Senior Shopify Developer</a></td>
+        <td>Sanctuary Computer</td>
+        <td>🌐 Remote / New York City</td>
+        <td><span class="src-badge src-wellfound">Wellfound</span></td>
+      </tr>
       </table>
     <div class="link-row">
       <span class="link-label">🔗 Search live:</span>
-      <a class="link-pill" href="https://www.linkedin.com/jobs/search/?keywords=Java+Developer&amp;location=India&amp;f_TPR=r86400&amp;f_AL=true&amp;f_E=1%2C2%2C3&amp;sortBy=DD" target="_blank">LinkedIn Easy Apply <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.workatastartup.com/jobs?role=eng&amp;q=Java+Developer&amp;remote=yes" target="_blank">YC Work at a Startup <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://wellfound.com/jobs?q=Java+Developer&amp;remote=true&amp;role=Software+Engineer" target="_blank">Wellfound <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.naukri.com/java-developer-jobs?experience=0-2&amp;location=India" target="_blank">Naukri</a><a class="link-pill" href="https://www.instahyre.com/search-jobs/?q=Java+Developer&amp;location=India&amp;experience=0-2" target="_blank">Instahyre <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://in.indeed.com/jobs?q=Java+Developer&amp;l=India&amp;fromage=1&amp;explvl=entry_level" target="_blank">Indeed India</a>
+      <a class="link-pill" href="https://www.linkedin.com/jobs/search/?keywords=Java+Developer&amp;location=India&amp;f_TPR=r172800&amp;f_AL=true&amp;f_E=1%2C2%2C3&amp;sortBy=DD" target="_blank">LinkedIn Easy Apply <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.workatastartup.com/jobs?role=eng&amp;q=Java+Developer&amp;remote=yes" target="_blank">YC Work at a Startup <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://wellfound.com/jobs?q=Java+Developer&amp;remote=true" target="_blank">Wellfound <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.naukri.com/java-developer-jobs?experience=0-2&amp;location=India" target="_blank">Naukri <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.instahyre.com/search-jobs/?q=Java+Developer&amp;location=India&amp;experience=0-2" target="_blank">Instahyre <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://in.indeed.com/jobs?q=Java+Developer&amp;l=India&amp;fromage=3&amp;explvl=entry_level" target="_blank">Indeed India</a>
     </div>
   </section>
   <section class="position-block" style="--accent:#16a34a">
     <h2>
       <span class="pos-title">Software Engineer</span>
-      <span class="count">14 jobs</span>
+      <span class="count">30 jobs</span>
     </h2>
     
       <table>
@@ -194,19 +274,55 @@
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-software-engineer-java-fullstack-officer-at-state-street-4469192648" target="_blank">Senior Software Engineer - Java Fullstack, Officer</a></td>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-iii-java-aws-at-jpmorganchase-4468377997" target="_blank">Software Engineer III - Java AWS</a></td>
+        <td>JPMorganChase</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-software-engineer-java-officer-at-state-street-4469189996" target="_blank">Senior Software Engineer - Java, Officer</a></td>
         <td>State Street</td>
         <td>🇮🇳 Hyderabad, Telangana, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-software-engineer-java-officer-at-state-street-4469211296" target="_blank">Senior Software Engineer - Java, Officer</a></td>
-        <td>State Street</td>
-        <td>🇮🇳 Hyderabad, Telangana, India</td>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-software-engineer-ii-java-full-stack-at-optum-india-4468657558" target="_blank">Senior Software Engineer II Java Full Stack</a></td>
+        <td>Optum India</td>
+        <td>🇮🇳 Chennai, Tamil Nadu, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-java-at-caterpillar-inc-4469133020" target="_blank">Software Engineer - Java</a></td>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-java-development-at-euronet-in-asia-4468652767" target="_blank">Software Engineer - Java Development</a></td>
+        <td>Euronet in Asia</td>
+        <td>🇮🇳 Thane, Maharashtra, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-ii-3-6-years-in-asp-net-c%23-pune-at-global-payments-inc-4469110704" target="_blank">Software Engineer II (3-6 years in Asp.Net,C#) Pune</a></td>
+        <td>Global Payments Inc.</td>
+        <td>🇮🇳 Pune Division, Maharashtra, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-software-engineer-at-walmart-global-tech-india-4255733662" target="_blank">Senior Software Engineer</a></td>
+        <td>Walmart Global Tech India</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-software-engineer-i-at-american-express-4467569598" target="_blank">Senior Software Engineer I</a></td>
+        <td>American Express</td>
+        <td>🇮🇳 Chennai, Tamil Nadu, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/ind-software-engineer-iii-at-walmart-global-tech-india-4418728636" target="_blank">(IND) Software Engineer III</a></td>
+        <td>Walmart Global Tech India</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-software-engineer-at-caterpillar-inc-4469129172" target="_blank">Senior Software Engineer</a></td>
         <td>Caterpillar Inc.</td>
         <td>🇮🇳 Bengaluru East, Karnataka, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
@@ -218,63 +334,123 @@
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-ii-3-6-years-in-asp-net-c%23-pune-at-global-payments-inc-4469110704" target="_blank">Software Engineer II (3-6 years in Asp.Net,C#) Pune</a></td>
-        <td>Global Payments Inc.</td>
-        <td>🇮🇳 Pune Division, Maharashtra, India</td>
-        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+        <td class="title"><a href="https://account.ycombinator.com/authenticate?continue=https%3A%2F%2Fwww.workatastartup.com%2Fapplication%3Fsignup_job_id%3D103933&amp;defaults%5BsignUpActive%5D=true&amp;defaults%5Bwaas_company%5D=714" target="_blank">Senior Software Engineer, Machine Learning</a></td>
+        <td>Hive</td>
+        <td>🌐 CA / Remote (CA)</td>
+        <td><span class="src-badge src-yc">YC Work at a Startup</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-software-engineer-at-idemia-4469124862" target="_blank">Senior Software Engineer</a></td>
-        <td>IDEMIA</td>
-        <td>🇮🇳 Noida, Uttar Pradesh, India</td>
-        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+        <td class="title"><a href="https://account.ycombinator.com/authenticate?continue=https%3A%2F%2Fwww.workatastartup.com%2Fapplication%3Fsignup_job_id%3D103934&amp;defaults%5BsignUpActive%5D=true&amp;defaults%5Bwaas_company%5D=714" target="_blank">Senior Software Engineer, Data Systems</a></td>
+        <td>Hive</td>
+        <td>🌐 Remote (US)</td>
+        <td><span class="src-badge src-yc">YC Work at a Startup</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/sr-software-engineer-sde3-node-at-pluang-4466668760" target="_blank">Sr. Software Engineer (SDE3- Node)</a></td>
-        <td>Pluang</td>
-        <td>🇮🇳 Gurugram, Haryana, India</td>
-        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+        <td class="title"><a href="https://wellfound.com/jobs/senior-software-engineer-developer-experience-and-reliability-ai-native" target="_blank">Senior Software Engineer, Developer Experience and Reliability (AI-Native)</a></td>
+        <td>Pico MES</td>
+        <td>🌐 Remote / Portland</td>
+        <td><span class="src-badge src-wellfound">Wellfound</span></td>
       </tr>
       <tr>
         <td class="title"><a href="https://www.arbeitnow.com/jobs/companies/quince/senior-staff-data-analyst-storefront-42526" target="_blank">Senior/Staff Data Analyst, Storefront</a></td>
         <td>Quince</td>
         <td>🌐 Remote</td>
-        <td><span class="src-badge">Arbeitnow</span></td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://weworkremotely.com/remote-jobs/twikey-java-developer" target="_blank">Twikey: Java Developer</a></td>
+        <td>Twikey</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">We Work Remotely</span></td>
       </tr>
       <tr>
         <td class="title"><a href="https://www.arbeitnow.com/jobs/companies/quince/senior-manager-site-merchandising-germany-373779" target="_blank">Senior Manager, Site Merchandising Germany</a></td>
         <td>Quince</td>
         <td>🌐 Remote</td>
-        <td><span class="src-badge">Arbeitnow</span></td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
       </tr>
       <tr>
         <td class="title"><a href="https://www.arbeitnow.co.uk/jobs/companies/cloudbedsthirdpartyboard/director-of-customer-support-447563" target="_blank">Director of Customer Support</a></td>
         <td>Cloudbedsthirdpartyboard</td>
         <td>🌐 Remote</td>
-        <td><span class="src-badge">Arbeitnow</span></td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
       </tr>
       <tr>
         <td class="title"><a href="https://www.arbeitnow.co.uk/jobs/companies/360learning/remote-head-of-gtm-systems-ai-278535" target="_blank">Head of GTM Systems &amp; AI</a></td>
         <td>360Learning</td>
         <td>🌐 London, Remote</td>
-        <td><span class="src-badge">Arbeitnow</span></td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
       </tr>
       <tr>
         <td class="title"><a href="https://www.arbeitnow.fr/jobs/companies/digicert/major-account-manager-174170" target="_blank">Major Account Manager</a></td>
         <td>Digicert</td>
         <td>🌐 Remote</td>
-        <td><span class="src-badge">Arbeitnow</span></td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-development-engineer-iii-backend-at-meesho-4459802218" target="_blank">Software Development Engineer III -Backend</a></td>
+        <td>Meesho</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-development-engineer-ii-aws-opensearch-at-amazon-web-services-aws-4468846282" target="_blank">Software Development Engineer II, AWS OpenSearch</a></td>
+        <td>Amazon Web Services (AWS)</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-development-engineer-ii-at-amazon-4468316617" target="_blank">Software Development Engineer - II</a></td>
+        <td>Amazon</td>
+        <td>🇮🇳 Hyderabad, Telangana, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-dev-engineer-ii-delivery-experience-delivery-experience-at-amazon-4459619338" target="_blank">Software Dev Engineer II, Delivery Experience, Delivery Experience</a></td>
+        <td>Amazon</td>
+        <td>🇮🇳 Hyderabad, Telangana, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-developer-at-kosh-4467186261" target="_blank">Software Developer</a></td>
+        <td>Kosh</td>
+        <td>🇮🇳 Gurugram, Haryana, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://account.ycombinator.com/authenticate?continue=https%3A%2F%2Fwww.workatastartup.com%2Fapplication%3Fsignup_job_id%3D100368&amp;defaults%5BsignUpActive%5D=true&amp;defaults%5Bwaas_company%5D=31560" target="_blank">Data Engineer (India)</a></td>
+        <td>Intelligence Factory</td>
+        <td>🇮🇳 Pune, Maharashtra, IN</td>
+        <td><span class="src-badge src-yc">YC Work at a Startup</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://account.ycombinator.com/authenticate?continue=https%3A%2F%2Fwww.workatastartup.com%2Fapplication%3Fsignup_job_id%3D106819&amp;defaults%5BsignUpActive%5D=true&amp;defaults%5Bwaas_company%5D=31560" target="_blank">Mechanical Engineer (India)</a></td>
+        <td>Intelligence Factory</td>
+        <td>🇮🇳 Pune, Maharashtra, IN</td>
+        <td><span class="src-badge src-yc">YC Work at a Startup</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://account.ycombinator.com/authenticate?continue=https%3A%2F%2Fwww.workatastartup.com%2Fapplication%3Fsignup_job_id%3D95576&amp;defaults%5BsignUpActive%5D=true&amp;defaults%5Bwaas_company%5D=31264" target="_blank">Founding Engineer @ Vela | Solving Scheduling | India</a></td>
+        <td>Vela</td>
+        <td>🌐 IN / Remote (IN)</td>
+        <td><span class="src-badge src-yc">YC Work at a Startup</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://wellfound.com/jobs/founding-engineer-ai-agentic-systems" target="_blank">Founding Engineer (AI &amp; Agentic Systems)</a></td>
+        <td>Codexa Intelligence</td>
+        <td>🌐 Remote / Montreal</td>
+        <td><span class="src-badge src-wellfound">Wellfound</span></td>
       </tr>
       </table>
     <div class="link-row">
       <span class="link-label">🔗 Search live:</span>
-      <a class="link-pill" href="https://www.linkedin.com/jobs/search/?keywords=Software+Engineer&amp;location=India&amp;f_TPR=r86400&amp;f_AL=true&amp;f_E=1%2C2%2C3&amp;sortBy=DD" target="_blank">LinkedIn Easy Apply <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.workatastartup.com/jobs?role=eng&amp;q=Software+Engineer&amp;remote=yes" target="_blank">YC Work at a Startup <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://wellfound.com/jobs?q=Software+Engineer&amp;remote=true&amp;role=Software+Engineer" target="_blank">Wellfound <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.naukri.com/software-engineer-jobs?experience=0-2&amp;location=India" target="_blank">Naukri</a><a class="link-pill" href="https://www.instahyre.com/search-jobs/?q=Software+Engineer&amp;location=India&amp;experience=0-2" target="_blank">Instahyre <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://in.indeed.com/jobs?q=Software+Engineer&amp;l=India&amp;fromage=1&amp;explvl=entry_level" target="_blank">Indeed India</a>
+      <a class="link-pill" href="https://www.linkedin.com/jobs/search/?keywords=Software+Engineer&amp;location=India&amp;f_TPR=r172800&amp;f_AL=true&amp;f_E=1%2C2%2C3&amp;sortBy=DD" target="_blank">LinkedIn Easy Apply <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.workatastartup.com/jobs?role=eng&amp;q=Software+Engineer&amp;remote=yes" target="_blank">YC Work at a Startup <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://wellfound.com/jobs?q=Software+Engineer&amp;remote=true" target="_blank">Wellfound <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.naukri.com/software-engineer-jobs?experience=0-2&amp;location=India" target="_blank">Naukri <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.instahyre.com/search-jobs/?q=Software+Engineer&amp;location=India&amp;experience=0-2" target="_blank">Instahyre <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://in.indeed.com/jobs?q=Software+Engineer&amp;l=India&amp;fromage=3&amp;explvl=entry_level" target="_blank">Indeed India</a>
     </div>
   </section>
   <section class="position-block" style="--accent:#9333ea">
     <h2>
       <span class="pos-title">Backend Developer</span>
-      <span class="count">9 jobs</span>
+      <span class="count">18 jobs</span>
     </h2>
     
       <table>
@@ -287,15 +463,15 @@
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/java-backend-developer-at-creospan-private-limited-4460977847" target="_blank">Java Backend Developer</a></td>
-        <td>Creospan Private Limited</td>
-        <td>🇮🇳 Pune District, Maharashtra, India</td>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-java-backend-developer-at-bnp-paribas-4400540503" target="_blank">Senior Java Backend Developer</a></td>
+        <td>BNP Paribas</td>
+        <td>🇮🇳 Chennai, Tamil Nadu, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/java-backend-developer-at-zensar-technologies-4467845201" target="_blank">Java backend developer</a></td>
-        <td>Zensar Technologies</td>
-        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/java-backend-developer-at-creospan-private-limited-4460977847" target="_blank">Java Backend Developer</a></td>
+        <td>Creospan Private Limited</td>
+        <td>🇮🇳 Pune District, Maharashtra, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
@@ -305,39 +481,507 @@
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-backend-developer-at-eazydiner-4468371647" target="_blank">Senior Backend Developer</a></td>
+        <td>EazyDiner</td>
+        <td>🇮🇳 Gurugram, Haryana, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://weworkremotely.com/remote-jobs/twikey-java-developer" target="_blank">Twikey: Java Developer</a></td>
+        <td>Twikey</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">We Work Remotely</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/java-developer-microservices-spring-boot-api-development-cloud-aws-azure-performance-tuning-at-synechron-4467550382" target="_blank">Java Developer | Microservices, Spring Boot, API Development, Cloud (AWS/Azure), Performance Tuning</a></td>
+        <td>Synechron</td>
+        <td>🇮🇳 Pune Division, Maharashtra, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
         <td class="title"><a href="https://jobicy.com/jobs/151041-product-manager-marketplace" target="_blank">Product Manager - Marketplace</a></td>
         <td>Supabase</td>
         <td>🌐 Anywhere</td>
-        <td><span class="src-badge">Jobicy</span></td>
+        <td><span class="src-badge ">Jobicy</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/backend-engineer-at-flexiple-4469117622" target="_blank">Backend Engineer</a></td>
-        <td>Flexiple</td>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-development-engineer-iii-backend-at-meesho-4459802218" target="_blank">Software Development Engineer III -Backend</a></td>
+        <td>Meesho</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/sde-ii-java-backend-issuance-at-nium-4468633333" target="_blank">SDE II - Java Backend : Issuance</a></td>
+        <td>Nium</td>
         <td>🇮🇳 Mumbai, Maharashtra, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/java-aws-developer-ccb-ramp-up-cards-at-mphasis-4469137338" target="_blank">Java AWS Developer-CCB Ramp up - Cards</a></td>
-        <td>Mphasis</td>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-software-engineer-backend-go-at-impact-analytics-4468399868" target="_blank">Senior Software Engineer - Backend (GO)</a></td>
+        <td>Impact Analytics</td>
         <td>🇮🇳 Bengaluru, Karnataka, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/founding-backend-engineer-at-mopid-4467878452" target="_blank">Founding Backend Engineer</a></td>
-        <td>Mopid</td>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-backend-engineer-node-js-at-josys-4466280117" target="_blank">Senior Backend Engineer (Node.Js)</a></td>
+        <td>Josys</td>
         <td>🇮🇳 Bengaluru, Karnataka, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
       </tr>
       <tr>
-        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-back-end-developer-python-at-quadrical-ai-4467851941" target="_blank">Senior Back End Developer (Python)</a></td>
-        <td>Quadrical Ai</td>
+        <td class="title"><a href="https://wellfound.com/jobs/senior-software-engineer-developer-experience-and-reliability-ai-native" target="_blank">Senior Software Engineer, Developer Experience and Reliability (AI-Native)</a></td>
+        <td>Pico MES</td>
+        <td>🌐 Remote / Portland</td>
+        <td><span class="src-badge src-wellfound">Wellfound</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/senior-software-developer-node-js-at-rebel-foods-4468392925" target="_blank">Senior Software Developer - Node.Js</a></td>
+        <td>Rebel Foods</td>
+        <td>🇮🇳 Mumbai Metropolitan Region</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/back-end-developer-professional-at-worldline-4460178961" target="_blank">Back-End Developer - Professional</a></td>
+        <td>Worldline</td>
+        <td>🇮🇳 Pune City, Maharashtra, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-developer-at-real-time-data-services-4467849147" target="_blank">Software Developer</a></td>
+        <td>Real Time Data Services</td>
         <td>🇮🇳 Gurugram, Haryana, India</td>
         <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/developer-at-idfc-first-bank-4428711242" target="_blank">Developer</a></td>
+        <td>IDFC FIRST Bank</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://wellfound.com/jobs/senior-shopify-developer" target="_blank">Senior Shopify Developer</a></td>
+        <td>Sanctuary Computer</td>
+        <td>🌐 Remote / New York City</td>
+        <td><span class="src-badge src-wellfound">Wellfound</span></td>
       </tr>
       </table>
     <div class="link-row">
       <span class="link-label">🔗 Search live:</span>
-      <a class="link-pill" href="https://www.linkedin.com/jobs/search/?keywords=Backend+Developer&amp;location=India&amp;f_TPR=r86400&amp;f_AL=true&amp;f_E=1%2C2%2C3&amp;sortBy=DD" target="_blank">LinkedIn Easy Apply <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.workatastartup.com/jobs?role=eng&amp;q=Backend+Developer&amp;remote=yes" target="_blank">YC Work at a Startup <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://wellfound.com/jobs?q=Backend+Developer&amp;remote=true&amp;role=Software+Engineer" target="_blank">Wellfound <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.naukri.com/backend-developer-jobs?experience=0-2&amp;location=India" target="_blank">Naukri</a><a class="link-pill" href="https://www.instahyre.com/search-jobs/?q=Backend+Developer&amp;location=India&amp;experience=0-2" target="_blank">Instahyre <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://in.indeed.com/jobs?q=Backend+Developer&amp;l=India&amp;fromage=1&amp;explvl=entry_level" target="_blank">Indeed India</a>
+      <a class="link-pill" href="https://www.linkedin.com/jobs/search/?keywords=Backend+Developer&amp;location=India&amp;f_TPR=r172800&amp;f_AL=true&amp;f_E=1%2C2%2C3&amp;sortBy=DD" target="_blank">LinkedIn Easy Apply <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.workatastartup.com/jobs?role=eng&amp;q=Backend+Developer&amp;remote=yes" target="_blank">YC Work at a Startup <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://wellfound.com/jobs?q=Backend+Developer&amp;remote=true" target="_blank">Wellfound <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.naukri.com/backend-developer-jobs?experience=0-2&amp;location=India" target="_blank">Naukri <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.instahyre.com/search-jobs/?q=Backend+Developer&amp;location=India&amp;experience=0-2" target="_blank">Instahyre <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://in.indeed.com/jobs?q=Backend+Developer&amp;l=India&amp;fromage=3&amp;explvl=entry_level" target="_blank">Indeed India</a>
+    </div>
+  </section>
+  <section class="position-block" style="--accent:#ea580c">
+    <h2>
+      <span class="pos-title">Software Engineer Intern</span>
+      <span class="count">34 jobs</span>
+    </h2>
+    
+      <table>
+        <tr><th>Title</th><th>Company</th><th>Location</th><th>Source</th></tr>
+        
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-intern-at-vahan-ai-4468619421" target="_blank">Software Engineer Intern</a></td>
+        <td>Vahan.ai</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-intern-at-firstmeta-infrastructure-solutions-4467853253" target="_blank">Software Engineer Intern</a></td>
+        <td>Firstmeta Infrastructure Solutions</td>
+        <td>🇮🇳 Chennai, Tamil Nadu, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-intern-walk-in-interview-at-logen-io-4467558469" target="_blank">Software Engineer Intern - Walk-In Interview</a></td>
+        <td>Logen.io</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-intern-at-zerowatt-4466649499" target="_blank">Software Engineer Intern</a></td>
+        <td>Zerowatt</td>
+        <td>🇮🇳 Chennai, Tamil Nadu, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-intern-at-acciojob-hiring-drives-4466687317" target="_blank">Software Engineer Intern</a></td>
+        <td>AccioJob - Hiring Drives</td>
+        <td>🇮🇳 Chennai, Tamil Nadu, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.com/jobs/companies/quince/senior-staff-data-analyst-storefront-42526" target="_blank">Senior/Staff Data Analyst, Storefront</a></td>
+        <td>Quince</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://weworkremotely.com/remote-jobs/twikey-java-developer" target="_blank">Twikey: Java Developer</a></td>
+        <td>Twikey</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">We Work Remotely</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineering-intern-at-abstrabit-technologies-4469134659" target="_blank">Software Engineering Intern</a></td>
+        <td>Abstrabit Technologies</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineering-intern-at-flam-4466665437" target="_blank">Software Engineering Intern</a></td>
+        <td>Flam</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.com/jobs/companies/quince/senior-manager-site-merchandising-germany-373779" target="_blank">Senior Manager, Site Merchandising Germany</a></td>
+        <td>Quince</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.co.uk/jobs/companies/elf-beauty/remote-manager-international-customer-supply-chain-rhode-475315" target="_blank">Manager, International Customer Supply Chain, rhode</a></td>
+        <td>e.l.f. Beauty</td>
+        <td>🌐 United Kingdom - Remote</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.co.uk/jobs/companies/cloudbedsthirdpartyboard/director-of-customer-support-447563" target="_blank">Director of Customer Support</a></td>
+        <td>Cloudbedsthirdpartyboard</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.co.uk/jobs/companies/360learning/remote-head-of-gtm-systems-ai-278535" target="_blank">Head of GTM Systems &amp; AI</a></td>
+        <td>360Learning</td>
+        <td>🌐 London, Remote</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.fr/jobs/companies/digicert/major-account-manager-174170" target="_blank">Major Account Manager</a></td>
+        <td>Digicert</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/product-engineering-intern-at-5-circles-4466246615" target="_blank">Product Engineering Intern</a></td>
+        <td>5 Circles</td>
+        <td>🇮🇳 Kanpur, Uttar Pradesh, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/engineer-intern-at-nutrithy-wellness-4468377732" target="_blank">Engineer Intern</a></td>
+        <td>Nutrithy Wellness</td>
+        <td>🇮🇳 India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/intern-full-stack-agentic-ai-applications-development-at-tecnod8-ai-4466662629" target="_blank">Intern Full Stack (Agentic AI Applications) Development</a></td>
+        <td>Tecnod8.AI</td>
+        <td>🇮🇳 Gurugram, Haryana, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://jobicy.com/jobs/153608-conceptual-art-director" target="_blank">Conceptual Art Director</a></td>
+        <td>Superside</td>
+        <td>🌐 Anywhere</td>
+        <td><span class="src-badge ">Jobicy</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/full-stack-developer-intern-at-pupiltree-ai-4466283028" target="_blank">Full Stack Developer Intern</a></td>
+        <td>Pupiltree.ai</td>
+        <td>🇮🇳 Ballari, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/mern-stack-developer-intern-at-hancod-4467174803" target="_blank">MERN Stack Developer Intern</a></td>
+        <td>Hancod</td>
+        <td>🇮🇳 Perintalmanna, Kerala, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/mern-stack-development-intern-at-webs-it-solution-4467849862" target="_blank">MERN STACK DEVELOPMENT INTERN</a></td>
+        <td>Webs IT Solution</td>
+        <td>🇮🇳 India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/intern-at-iqvia-4469167956" target="_blank">Intern</a></td>
+        <td>IQVIA</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/fullstack-web-development-intern-at-devryxa-4469152822" target="_blank">FULLSTACK WEB DEVELOPMENT INTERN</a></td>
+        <td>Devryxa</td>
+        <td>🇮🇳 India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/react-js-development-intern-at-um-it-solutions-4467862456" target="_blank">REACT JS DEVELOPMENT INTERN</a></td>
+        <td>UM IT Solutions</td>
+        <td>🇮🇳 India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/intern-smart-factory-solutions-at-magna-international-4422173133" target="_blank">Intern, Smart Factory Solutions</a></td>
+        <td>Magna International</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/full-stack-web-developer-at-internmo-4467871842" target="_blank">Full Stack Web Developer</a></td>
+        <td>internmo</td>
+        <td>🇮🇳 India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.fr/jobs/companies/msg-industry-advisors-ag/senior-manager-mes-manufacturing-transformation-hybrid-137472" target="_blank">Senior Manager MES / Manufacturing Transformation | m/w/d</a></td>
+        <td>Msg Industry Advisors Ag</td>
+        <td>Hybrid</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://account.ycombinator.com/authenticate?continue=https%3A%2F%2Fwww.workatastartup.com%2Fapplication%3Fsignup_job_id%3D103933&amp;defaults%5BsignUpActive%5D=true&amp;defaults%5Bwaas_company%5D=714" target="_blank">Senior Software Engineer, Machine Learning</a></td>
+        <td>Hive</td>
+        <td>🌐 CA / Remote (CA)</td>
+        <td><span class="src-badge src-yc">YC Work at a Startup</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://account.ycombinator.com/authenticate?continue=https%3A%2F%2Fwww.workatastartup.com%2Fapplication%3Fsignup_job_id%3D103934&amp;defaults%5BsignUpActive%5D=true&amp;defaults%5Bwaas_company%5D=714" target="_blank">Senior Software Engineer, Data Systems</a></td>
+        <td>Hive</td>
+        <td>🌐 Remote (US)</td>
+        <td><span class="src-badge src-yc">YC Work at a Startup</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://wellfound.com/jobs/senior-software-engineer-developer-experience-and-reliability-ai-native" target="_blank">Senior Software Engineer, Developer Experience and Reliability (AI-Native)</a></td>
+        <td>Pico MES</td>
+        <td>🌐 Remote / Portland</td>
+        <td><span class="src-badge src-wellfound">Wellfound</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://account.ycombinator.com/authenticate?continue=https%3A%2F%2Fwww.workatastartup.com%2Fapplication%3Fsignup_job_id%3D100368&amp;defaults%5BsignUpActive%5D=true&amp;defaults%5Bwaas_company%5D=31560" target="_blank">Data Engineer (India)</a></td>
+        <td>Intelligence Factory</td>
+        <td>🇮🇳 Pune, Maharashtra, IN</td>
+        <td><span class="src-badge src-yc">YC Work at a Startup</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://account.ycombinator.com/authenticate?continue=https%3A%2F%2Fwww.workatastartup.com%2Fapplication%3Fsignup_job_id%3D106819&amp;defaults%5BsignUpActive%5D=true&amp;defaults%5Bwaas_company%5D=31560" target="_blank">Mechanical Engineer (India)</a></td>
+        <td>Intelligence Factory</td>
+        <td>🇮🇳 Pune, Maharashtra, IN</td>
+        <td><span class="src-badge src-yc">YC Work at a Startup</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://account.ycombinator.com/authenticate?continue=https%3A%2F%2Fwww.workatastartup.com%2Fapplication%3Fsignup_job_id%3D95576&amp;defaults%5BsignUpActive%5D=true&amp;defaults%5Bwaas_company%5D=31264" target="_blank">Founding Engineer @ Vela | Solving Scheduling | India</a></td>
+        <td>Vela</td>
+        <td>🌐 IN / Remote (IN)</td>
+        <td><span class="src-badge src-yc">YC Work at a Startup</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://wellfound.com/jobs/founding-engineer-ai-agentic-systems" target="_blank">Founding Engineer (AI &amp; Agentic Systems)</a></td>
+        <td>Codexa Intelligence</td>
+        <td>🌐 Remote / Montreal</td>
+        <td><span class="src-badge src-wellfound">Wellfound</span></td>
+      </tr>
+      </table>
+    <div class="link-row">
+      <span class="link-label">🔗 Search live:</span>
+      <a class="link-pill" href="https://www.linkedin.com/jobs/search/?keywords=Software+Engineer+Intern&amp;location=India&amp;f_TPR=r172800&amp;f_AL=true&amp;f_E=1%2C2%2C3&amp;sortBy=DD" target="_blank">LinkedIn Easy Apply <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.workatastartup.com/jobs?role=eng&amp;q=Software+Engineer+Intern&amp;remote=yes" target="_blank">YC Work at a Startup <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://wellfound.com/jobs?q=Software+Engineer+Intern&amp;remote=true" target="_blank">Wellfound <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.naukri.com/software-engineer-intern-jobs?experience=0-2&amp;location=India" target="_blank">Naukri <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.instahyre.com/search-jobs/?q=Software+Engineer+Intern&amp;location=India&amp;experience=0-2" target="_blank">Instahyre <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://in.indeed.com/jobs?q=Software+Engineer+Intern&amp;l=India&amp;fromage=3&amp;explvl=entry_level" target="_blank">Indeed India</a>
+    </div>
+  </section>
+  <section class="position-block" style="--accent:#2563eb">
+    <h2>
+      <span class="pos-title">Developer Intern</span>
+      <span class="count">30 jobs</span>
+    </h2>
+    
+      <table>
+        <tr><th>Title</th><th>Company</th><th>Location</th><th>Source</th></tr>
+        
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/java-backend-developer-intern-at-skillovilla-4466913267" target="_blank">Java Backend Developer Intern</a></td>
+        <td>SkilloVilla</td>
+        <td>🇮🇳 Greater Bengaluru Area</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/python-developer-intern-at-swynex-technologies-4466290233" target="_blank">Python Developer Intern</a></td>
+        <td>SWYNEX Technologies</td>
+        <td>🇮🇳 India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/full-stack-developer-intern-at-pupiltree-ai-4466283028" target="_blank">Full Stack Developer Intern</a></td>
+        <td>Pupiltree.ai</td>
+        <td>🇮🇳 Ballari, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/mern-stack-developer-intern-at-hancod-4467174803" target="_blank">MERN Stack Developer Intern</a></td>
+        <td>Hancod</td>
+        <td>🇮🇳 Perintalmanna, Kerala, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/full-stack-web-developer-at-internmo-4467871842" target="_blank">Full Stack Web Developer</a></td>
+        <td>internmo</td>
+        <td>🇮🇳 India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://weworkremotely.com/remote-jobs/twikey-java-developer" target="_blank">Twikey: Java Developer</a></td>
+        <td>Twikey</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">We Work Remotely</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.co.uk/jobs/companies/elf-beauty/remote-manager-international-customer-supply-chain-rhode-475315" target="_blank">Manager, International Customer Supply Chain, rhode</a></td>
+        <td>e.l.f. Beauty</td>
+        <td>🌐 United Kingdom - Remote</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/flutter-development-internship-in-bangalore-at-myraid-media-4468851198" target="_blank">Flutter Development Internship in Bangalore</a></td>
+        <td>Myraid Media</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.com/jobs/companies/quince/senior-staff-data-analyst-storefront-42526" target="_blank">Senior/Staff Data Analyst, Storefront</a></td>
+        <td>Quince</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.com/jobs/companies/quince/senior-manager-site-merchandising-germany-373779" target="_blank">Senior Manager, Site Merchandising Germany</a></td>
+        <td>Quince</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.co.uk/jobs/companies/360learning/remote-head-of-gtm-systems-ai-278535" target="_blank">Head of GTM Systems &amp; AI</a></td>
+        <td>360Learning</td>
+        <td>🌐 London, Remote</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-intern-at-zerowatt-4466649499" target="_blank">Software Engineer Intern</a></td>
+        <td>Zerowatt</td>
+        <td>🇮🇳 Chennai, Tamil Nadu, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-intern-at-vahan-ai-4468619421" target="_blank">Software Engineer Intern</a></td>
+        <td>Vahan.ai</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-intern-at-firstmeta-infrastructure-solutions-4467853253" target="_blank">Software Engineer Intern</a></td>
+        <td>Firstmeta Infrastructure Solutions</td>
+        <td>🇮🇳 Chennai, Tamil Nadu, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineering-intern-at-flam-4466665437" target="_blank">Software Engineering Intern</a></td>
+        <td>Flam</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineering-intern-at-abstrabit-technologies-4469134659" target="_blank">Software Engineering Intern</a></td>
+        <td>Abstrabit Technologies</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/intern-full-stack-agentic-ai-applications-development-at-tecnod8-ai-4466662629" target="_blank">Intern Full Stack (Agentic AI Applications) Development</a></td>
+        <td>Tecnod8.AI</td>
+        <td>🇮🇳 Gurugram, Haryana, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/software-engineer-intern-at-acciojob-hiring-drives-4466687317" target="_blank">Software Engineer Intern</a></td>
+        <td>AccioJob - Hiring Drives</td>
+        <td>🇮🇳 Chennai, Tamil Nadu, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/python-ai-intern-at-techolution-4467852674" target="_blank">Python AI Intern</a></td>
+        <td>techolution</td>
+        <td>🇮🇳 Hyderabad, Telangana, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://jobicy.com/jobs/153608-conceptual-art-director" target="_blank">Conceptual Art Director</a></td>
+        <td>Superside</td>
+        <td>🌐 Anywhere</td>
+        <td><span class="src-badge ">Jobicy</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.co.uk/jobs/companies/cloudbedsthirdpartyboard/director-of-customer-support-447563" target="_blank">Director of Customer Support</a></td>
+        <td>Cloudbedsthirdpartyboard</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.fr/jobs/companies/digicert/major-account-manager-174170" target="_blank">Major Account Manager</a></td>
+        <td>Digicert</td>
+        <td>🌐 Remote</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/mean-stack-development-intern-at-unified-mentor-jobs-4467840996" target="_blank">MEAN STACK DEVELOPMENT INTERN</a></td>
+        <td>Unified Mentor Jobs</td>
+        <td>🇮🇳 India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/react-js-development-intern-at-um-it-solutions-4467862456" target="_blank">REACT JS DEVELOPMENT INTERN</a></td>
+        <td>UM IT Solutions</td>
+        <td>🇮🇳 India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/frontend-development-intern-at-vortenza-systems-4469149489" target="_blank">FRONTEND DEVELOPMENT INTERN</a></td>
+        <td>Vortenza Systems</td>
+        <td>🇮🇳 India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/frontend-development-intern-at-dexter-s-tech-4469167975" target="_blank">FRONTEND DEVELOPMENT INTERN</a></td>
+        <td>Dexter&#x27;s Tech</td>
+        <td>🇮🇳 India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://in.linkedin.com/jobs/view/ai-engineering-intern-at-abstrabit-technologies-4469130739" target="_blank">AI Engineering Intern</a></td>
+        <td>Abstrabit Technologies</td>
+        <td>🇮🇳 Bengaluru, Karnataka, India</td>
+        <td><span class="src-badge src-linkedin">LinkedIn</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://www.arbeitnow.fr/jobs/companies/msg-industry-advisors-ag/senior-manager-mes-manufacturing-transformation-hybrid-137472" target="_blank">Senior Manager MES / Manufacturing Transformation | m/w/d</a></td>
+        <td>Msg Industry Advisors Ag</td>
+        <td>Hybrid</td>
+        <td><span class="src-badge ">Arbeitnow</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://wellfound.com/jobs/senior-software-engineer-developer-experience-and-reliability-ai-native" target="_blank">Senior Software Engineer, Developer Experience and Reliability (AI-Native)</a></td>
+        <td>Pico MES</td>
+        <td>🌐 Remote / Portland</td>
+        <td><span class="src-badge src-wellfound">Wellfound</span></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="https://wellfound.com/jobs/senior-shopify-developer" target="_blank">Senior Shopify Developer</a></td>
+        <td>Sanctuary Computer</td>
+        <td>🌐 Remote / New York City</td>
+        <td><span class="src-badge src-wellfound">Wellfound</span></td>
+      </tr>
+      </table>
+    <div class="link-row">
+      <span class="link-label">🔗 Search live:</span>
+      <a class="link-pill" href="https://www.linkedin.com/jobs/search/?keywords=Developer+Intern&amp;location=India&amp;f_TPR=r172800&amp;f_AL=true&amp;f_E=1%2C2%2C3&amp;sortBy=DD" target="_blank">LinkedIn Easy Apply <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.workatastartup.com/jobs?role=eng&amp;q=Developer+Intern&amp;remote=yes" target="_blank">YC Work at a Startup <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://wellfound.com/jobs?q=Developer+Intern&amp;remote=true" target="_blank">Wellfound <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.naukri.com/developer-intern-jobs?experience=0-2&amp;location=India" target="_blank">Naukri <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://www.instahyre.com/search-jobs/?q=Developer+Intern&amp;location=India&amp;experience=0-2" target="_blank">Instahyre <span class="ea-badge">⚡ Easy Apply</span></a><a class="link-pill" href="https://in.indeed.com/jobs?q=Developer+Intern&amp;l=India&amp;fromage=3&amp;explvl=entry_level" target="_blank">Indeed India</a>
     </div>
   </section>
 
