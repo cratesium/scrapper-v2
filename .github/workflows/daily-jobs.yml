@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs at 09:00 UTC every day
     - cron: '0 9 * * *'
-  workflow_dispatch: # Allows you to run the script manually from the Actions tab
+  workflow_dispatch: 
 
 jobs:
   scrape-and-email:
@@ -32,11 +32,9 @@ jobs:
 
     - name: Run Job Scraper
       env:
-        # Mapped to what the error message asked for:
         GMAIL_USER: ${{ secrets.SENDER_EMAIL }}
         GMAIL_APP_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         TO_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
-        # Mapped to what the secrets are named (in case config.py looks for these instead):
         SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
         EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
