@@ -1,0 +1,40 @@
+name: Daily Job Digest
+
+on:
+  schedule:
+    # Runs every day at 03:00 UTC (~8:30 AM IST). Edit the cron to change the time.
+    - cron: "0 3 * * *"
+  workflow_dispatch: {}   # lets you manually trigger a run from the Actions tab to test
+
+permissions:
+  contents: write
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run job scraper
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+        run: python main.py
+
+      - name: Commit updated report
+        run: |
+          git config --global user.name "job-scraper-bot"
+          git config --global user.email "actions@github.com"
+          git add reports/
+          git diff --staged --quiet || git commit -m "Daily job digest $(date -u +'%Y-%m-%d')"
+          git push
