@@ -2,7 +2,6 @@ name: Daily Job Scraper
 
 on:
   schedule:
-    # Runs at 09:00 UTC every day
     - cron: '0 9 * * *'
   workflow_dispatch: 
 
@@ -24,19 +23,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: DEBUG - Check Environment Variables
-      env:
-        TEST_VAR: ${{ secrets.SENDER_EMAIL }}
-      run: |
-        python -c "import os; print('GitHub Secrets are successfully loading into the runner:', bool(os.environ.get('TEST_VAR')))"
-
     - name: Run Job Scraper
       env:
         GMAIL_USER: ${{ secrets.SENDER_EMAIL }}
         GMAIL_APP_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         TO_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
-        SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
-        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-        RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
       run: |
         python main.py
