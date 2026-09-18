@@ -2,21 +2,17 @@ name: Daily Job Scraper
 
 on:
   schedule:
-    - cron: '30 3 * * *'   # 9:00 AM IST  — morning digest
-    - cron: '30 15 * * *'  # 9:00 PM IST  — evening digest
-  workflow_dispatch:        # manually trigger from the Actions tab
-
+    - cron: '30 3 * * *'   # 9:00 AM IST
+    - cron: '30 15 * * *'  # 9:00 PM IST
+  workflow_dispatch:
 
 permissions:
   contents: write
 
-# ---------------------------------------------------------------------------
-# Required GitHub Actions secrets:
-#   GMAIL_USER          — sender Gmail address  (e.g. you@gmail.com)
-#   GMAIL_APP_PASSWORD  — Gmail App Password    (16-char, 2FA required)
-#   TO_EMAIL            — recipient(s); comma-separate for multiple addresses
-#                         e.g. "alice@gmail.com,bob@gmail.com"
-# ---------------------------------------------------------------------------
+# Prevent two scraper runs from pushing to main at the same time
+concurrency:
+  group: daily-job-scraper
+  cancel-in-progress: false
 
 jobs:
   scrape-and-email:
@@ -25,6 +21,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -40,7 +38,6 @@ jobs:
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          # Supports multiple recipients — comma-separated list in the secret
           TO_EMAIL: ${{ secrets.TO_EMAIL }}
         run: python main.py
 
@@ -48,6 +45,21 @@ jobs:
         run: |
           git config --global user.name "job-scraper-bot"
           git config --global user.email "actions@github.com"
+
           git add reports/
-          git diff --staged --quiet || git commit -m "Job digest $(date -u +'%Y-%m-%d %H:%M UTC')"
-          git push
+
+          if git diff --staged --quiet; then
+            echo "No report changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Job digest $(date -u +'%Y-%m-%d %H:%M UTC')"
+
+          # Get any commits that appeared on remote after checkout
+          git fetch origin main
+
+          # Put our generated report commit on top of remote main
+          git rebase origin/main
+
+          # Push the updated history
+          git push origin HEAD:main
