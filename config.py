@@ -1,76 +1,63 @@
 """
 Job Search Configuration
 =========================
-Edit this file to change what jobs you're searching for.
+Jobs are fetched position-by-position with individual caps.
+Total digest cap: 100 links (30 + 30 + 30 + 10).
 Optimised for a Java Backend Developer with ~2 years of experience.
 """
 
-# --- Job titles to search for ---
-JOB_TITLES = [
-    "Java Developer",
-    "Backend Java Engineer",
-    "Software Engineer",
-    "Backend Engineer",
-    "Java Backend Developer",
-    "SDE",
-    "Spring Boot Developer",
-    "Java Software Engineer",
+# ---------------------------------------------------------------------------
+# Position-wise search config
+# Each entry: title searched across ALL sources, capped at its own limit.
+# Total = sum of all limits (must be ≤ 100).
+# ---------------------------------------------------------------------------
+SEARCH_POSITIONS = [
+    {"title": "Software Engineer",        "limit": 30},
+    {"title": "Java Developer",           "limit": 30},
+    {"title": "Software Engineer Intern", "limit": 30},
+    {"title": "Product Manager Intern",   "limit": 10},
 ]
 
-# --- Core skills (used to score/rank incoming listings by relevance) ---
+MAX_TOTAL = 100   # hard ceiling across all positions
+
+# ---------------------------------------------------------------------------
+# Core skills — used to boost relevance score for Java/backend roles
+# ---------------------------------------------------------------------------
 SKILLS = [
     # Primary stack
     "Java", "Spring Boot", "Spring", "Spring MVC", "Spring Security",
     # Architecture
     "Microservices", "REST", "RESTful", "API", "Backend",
     # Messaging / streaming
-    "Kafka", "Apache Kafka", "RabbitMQ", "ActiveMQ",
+    "Kafka", "Apache Kafka", "RabbitMQ",
     # DevOps / infra
-    "Kubernetes", "k8s", "Docker", "AWS", "GCP", "Azure", "CI/CD",
+    "Kubernetes", "Docker", "AWS", "GCP", "CI/CD",
     # Data
-    "MySQL", "PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "Hibernate", "JPA",
+    "MySQL", "PostgreSQL", "MongoDB", "Redis", "Hibernate", "JPA",
     # Concepts
-    "System Design", "Distributed Systems", "Multithreading", "Concurrency",
+    "System Design", "Distributed Systems", "Multithreading",
+    # PM / intern keywords (scored when relevant)
+    "Product Manager", "Product Management", "Intern", "Internship",
+    "Roadmap", "Stakeholder", "Agile", "Scrum",
 ]
 
-# --- Experience level ---
-EXPERIENCE_LEVEL = "entry"          # 2 yrs still qualifies for entry/associate roles
-YEARS_EXPERIENCE = 2                # used in search-link params
-
-# --- Locations ---
-LOCATIONS = [
-    "Noida",
-    "Gurugram",
-    "Delhi NCR",
-    "Bangalore",
-    "Hyderabad",
-    "Pune",
-    "Remote",
-]
+# ---------------------------------------------------------------------------
+# Location / remote prefs
+# ---------------------------------------------------------------------------
+LOCATIONS       = ["Noida", "Gurugram", "Delhi NCR", "Bangalore", "Hyderabad", "Pune", "Remote"]
 PRIMARY_LOCATION = "India"
-
-# --- Remote toggle ---
-INCLUDE_REMOTE = True
-
-# --- How many days back a listing is considered "fresh" ---
-FRESHNESS_DAYS = 2
-
-# --- Max jobs per source in the digest ---
-MAX_PER_SOURCE = 8
+INCLUDE_REMOTE  = True
+YEARS_EXPERIENCE = 2
 
 # ---------------------------------------------------------------------------
-# Email settings
-# ---------------------------------------------------------------------------
-# TO_EMAIL can be a single address OR a comma-separated list, e.g.:
-#   TO_EMAIL=alice@gmail.com,bob@gmail.com
-#
-# Set these as GitHub Actions encrypted secrets (never hardcode here).
+# Email settings  (set as GitHub Actions secrets — never hardcode here)
+# TO_EMAIL supports comma-separated list: "a@x.com,b@x.com"
 # ---------------------------------------------------------------------------
 import os
 
-EMAIL_FROM        = os.environ.get("GMAIL_USER", "")
+EMAIL_FROM         = os.environ.get("GMAIL_USER", "")
 EMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD", "")
 
-_raw_to           = os.environ.get("TO_EMAIL", "")
+_raw_to            = os.environ.get("TO_EMAIL", "")
 EMAIL_TO_LIST: list[str] = [e.strip() for e in _raw_to.split(",") if e.strip()]
-EMAIL_TO          = ", ".join(EMAIL_TO_LIST)   # kept for display / header
+EMAIL_TO           = ", ".join(EMAIL_TO_LIST)
