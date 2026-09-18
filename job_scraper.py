@@ -22,12 +22,14 @@ Click-through / easy-apply links (not scraped):
     Dice, Instahyre, Naukri, Indeed
 """
 
+import re
 import requests
 import feedparser
 import urllib.parse
 import datetime
 from dataclasses import dataclass, field
-from typing import List, Dict
+from typing import List, Dict, Optional
+from email.utils import parsedate_to_datetime
 
 import config
 
@@ -46,6 +48,81 @@ class Job:
     posted:   str       = ""
     tags:     List[str] = field(default_factory=list)
     score:    int       = 0
+
+
+# ---------------------------------------------------------------------------
+# Freshness filter  (keep only jobs posted within FRESHNESS_HOURS)
+# ---------------------------------------------------------------------------
+
+_DATE_ONLY_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def _parse_posted(posted: str) -> Optional[datetime.datetime]:
+    """
+    Parse a posted/date string into a timezone-aware datetime.
+    Returns None when the format is unrecognised (caller treats as fresh).
+
+    Order matters:
+      1. Unix timestamp
+      2. Date-only  YYYY-MM-DD  → noon UTC (avoids midnight-UTC trap)
+      3. ISO 8601 with time component
+      4. RFC 2822 (RSS)
+    """
+    if not posted:
+        return None
+    s = str(posted).strip()
+
+    # 1. Unix timestamp (plain integer string)
+    if s.lstrip("-").isdigit():
+        try:
+            return datetime.datetime.fromtimestamp(int(s), tz=datetime.timezone.utc)
+        except Exception:
+            pass
+
+    # 2. Date-only  "2024-01-15"
+    #    Map to noon UTC so both the 9 AM and 9 PM IST cron runs treat
+    #    today's date-only listings as fresh.
+    if _DATE_ONLY_RE.match(s):
+        try:
+            d = datetime.date.fromisoformat(s)
+            return datetime.datetime(d.year, d.month, d.day, 12, 0, 0,
+                                     tzinfo=datetime.timezone.utc)
+        except ValueError:
+            pass
+
+    # 3. ISO 8601 with time component  (handles trailing "Z" and "+00:00")
+    try:
+        return datetime.datetime.fromisoformat(s.replace("Z", "+00:00"))
+    except ValueError:
+        pass
+
+    # 4. RFC 2822 — used by RSS feeds  "Mon, 15 Jan 2024 10:30:00 +0000"
+    try:
+        return parsedate_to_datetime(s)
+    except Exception:
+        pass
+
+    return None
+
+
+def _is_fresh(posted: str) -> bool:
+    """
+    Return True if the job was posted within config.FRESHNESS_HOURS.
+    A 10-minute grace period handles micro-timing differences at the boundary.
+    Unknown / unparseable dates are conservatively treated as fresh so real
+    listings are never silently dropped.
+    """
+    dt = _parse_posted(posted)
+    if dt is None:
+        return True                           # unknown date → include
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=datetime.timezone.utc)
+    cutoff = (
+        datetime.datetime.now(datetime.timezone.utc)
+        - datetime.timedelta(hours=config.FRESHNESS_HOURS)
+        + datetime.timedelta(minutes=10)      # grace for boundary edge-cases
+    )
+    return dt >= cutoff
 
 
 # ---------------------------------------------------------------------------
@@ -314,17 +391,24 @@ _FETCHERS = [
 
 def _fetch_for_position(title: str, limit: int) -> List[Job]:
     """
-    Call every source for `title`, merge results, deduplicate by URL,
-    sort by score, and return the top `limit` jobs.
+    Call every source for `title`, merge results, apply 12-hour freshness
+    filter, deduplicate by URL, sort by score, return top `limit` jobs.
     """
     all_jobs: List[Job] = []
     seen_urls: set      = set()
+    stale_count         = 0
 
     for fetcher in _FETCHERS:
         for job in fetcher(title, limit):
+            if not _is_fresh(job.posted):
+                stale_count += 1
+                continue
             if job.url not in seen_urls:
                 seen_urls.add(job.url)
                 all_jobs.append(job)
+
+    if stale_count:
+        print(f"  ↳ dropped {stale_count} stale listings (>{ config.FRESHNESS_HOURS}h old)")
 
     all_jobs.sort(key=lambda j: j.score, reverse=True)
     return all_jobs[:limit]
@@ -352,7 +436,7 @@ def generate_search_links() -> Dict[str, Dict[str, str]]:
             + urllib.parse.urlencode({
                 "keywords": title,
                 "location": config.PRIMARY_LOCATION,
-                "f_TPR":    "r86400",
+                "f_TPR":    "r43200",   # past 12 hours — matches cron cadence
                 "f_AL":     "true",
                 "f_E":      "1,2,3",
                 "sortBy":   "DD",
@@ -379,6 +463,7 @@ def generate_search_links() -> Dict[str, Dict[str, str]]:
         links["Indeed"] = (
             "https://www.indeed.com/jobs?"
             + urllib.parse.urlencode({"q": title, "l": config.PRIMARY_LOCATION, "fromage": "1"})
+            # Indeed minimum granularity = 1 day; 12h filter applied on fetched results
         )
 
         result[title] = links

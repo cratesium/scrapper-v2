@@ -20,6 +20,9 @@ SEARCH_POSITIONS = [
 
 MAX_TOTAL = 100   # hard ceiling across all positions
 
+# Only include jobs posted/updated within this window (matches cron cadence)
+FRESHNESS_HOURS = 12
+
 # ---------------------------------------------------------------------------
 # Core skills — used to boost relevance score for Java/backend roles
 # ---------------------------------------------------------------------------
