@@ -17,14 +17,32 @@ import html as _html
 _COLORS = ["#2563eb", "#16a34a", "#9333ea", "#ea580c"]
 
 
+_LOCATION_ICONS = {
+    "remote": "🌐",
+    "india":  "🇮🇳",
+}
+
+def _location_icon(location: str) -> str:
+    loc = location.lower()
+    if any(kw in loc for kw in ["remote", "worldwide", "global", "anywhere", "wfh"]):
+        return "🌐 "
+    if any(kw in loc for kw in ["india", "noida", "bangalore", "bengaluru", "hyderabad",
+                                  "pune", "mumbai", "delhi", "gurgaon", "gurugram",
+                                  "chennai", "kolkata"]):
+        return "🇮🇳 "
+    return ""
+
+
 def _job_row(job) -> str:
-    source_badge = _html.escape(job.source)
+    source_badge  = _html.escape(job.source)
+    loc_icon      = _location_icon(job.location)
+    src_class     = "src-badge src-linkedin" if job.source == "LinkedIn" else "src-badge"
     return f"""
       <tr>
         <td class="title"><a href="{_html.escape(job.url)}" target="_blank">{_html.escape(job.title)}</a></td>
         <td>{_html.escape(job.company)}</td>
-        <td>{_html.escape(job.location)}</td>
-        <td><span class="src-badge">{source_badge}</span></td>
+        <td>{loc_icon}{_html.escape(job.location)}</td>
+        <td><span class="{src_class}">{source_badge}</span></td>
       </tr>"""
 
 
@@ -165,6 +183,25 @@ def build_html(result: dict) -> str:
 
   .no-jobs {{ color: var(--muted); font-size: 0.9rem; margin: 8px 0; }}
 
+  /* Experience badge in header */
+  .exp-badge {{
+    background: #eff6ff; color: #1d4ed8;
+    border-radius: 99px; padding: 2px 10px;
+    font-size: 0.78rem; font-weight: 700;
+    border: 1px solid #bfdbfe;
+  }}
+  @media (prefers-color-scheme: dark) {{
+    .exp-badge {{ background: #1e3a5f; color: #93c5fd; border-color: #1d4ed8; }}
+  }}
+
+  /* LinkedIn source badge override */
+  .src-linkedin {{
+    background: #dbeafe; color: #1d4ed8;
+  }}
+  @media (prefers-color-scheme: dark) {{
+    .src-linkedin {{ background: #1e3a5f; color: #93c5fd; }}
+  }}
+
   footer {{ margin-top: 40px; color: var(--muted); font-size: 0.78rem; border-top: 1px solid var(--border); padding-top: 12px; }}
 </style>
 </head>
@@ -172,6 +209,8 @@ def build_html(result: dict) -> str:
   <h1 class="header-title">📋 Daily Job Digest</h1>
   <p class="header-meta">
     {today_str} &nbsp;·&nbsp; {total_jobs} jobs across {len(jobs_by_pos)} positions
+    &nbsp;·&nbsp; <span class="exp-badge">0–2 yrs exp</span>
+    &nbsp;·&nbsp; 🇮🇳 On-site India &nbsp;·&nbsp; 🌐 Remote worldwide
     &nbsp;·&nbsp; Generated {_html.escape(generated_at)}
   </p>
 
