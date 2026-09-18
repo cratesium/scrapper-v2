@@ -1,56 +1,79 @@
 """
 Job Search Configuration
 =========================
-Jobs are fetched position-by-position with individual caps.
-Total digest cap: 100 links (30 + 30 + 30 + 10).
-Optimised for a Java Backend Developer with ~2 years of experience.
+Targeted for a Java Backend Developer with 0–2 years of experience.
+Positions: Java Developer + Software Engineer.
+Location rules:
+  • On-site / hybrid → India only
+  • Remote           → anywhere worldwide
+Total digest cap: 100 links.
 """
 
 # ---------------------------------------------------------------------------
 # Position-wise search config
 # Each entry: title searched across ALL sources, capped at its own limit.
-# Total = sum of all limits (must be ≤ 100).
 # ---------------------------------------------------------------------------
 SEARCH_POSITIONS = [
-    {"title": "Software Engineer",        "limit": 30},
-    {"title": "Java Developer",           "limit": 30},
-    {"title": "Software Engineer Intern", "limit": 30},
-    {"title": "Product Manager Intern",   "limit": 10},
+    {"title": "Java Developer",    "limit": 40},
+    {"title": "Software Engineer", "limit": 40},
+    {"title": "Backend Developer", "limit": 20},
 ]
 
 MAX_TOTAL = 100   # hard ceiling across all positions
 
 # Only include jobs posted/updated within this window (matches cron cadence)
-FRESHNESS_HOURS = 12
+FRESHNESS_HOURS = 24   # widened to 24h so LinkedIn & slower boards appear
 
 # ---------------------------------------------------------------------------
-# Core skills — used to boost relevance score for Java/backend roles
+# Experience target  (used in search-link generation and score boosting)
+# ---------------------------------------------------------------------------
+EXPERIENCE_MIN = 0    # years
+EXPERIENCE_MAX = 2    # years
+
+# ---------------------------------------------------------------------------
+# Core skills — used to boost relevance score  (from resume)
 # ---------------------------------------------------------------------------
 SKILLS = [
-    # Primary stack
-    "Java", "Spring Boot", "Spring", "Spring MVC", "Spring Security",
-    # Architecture
-    "Microservices", "REST", "RESTful", "API", "Backend",
-    # Messaging / streaming
-    "Kafka", "Apache Kafka", "RabbitMQ",
-    # DevOps / infra
-    "Kubernetes", "Docker", "AWS", "GCP", "CI/CD",
-    # Data
-    "MySQL", "PostgreSQL", "MongoDB", "Redis", "Hibernate", "JPA",
-    # Concepts
-    "System Design", "Distributed Systems", "Multithreading",
-    # PM / intern keywords (scored when relevant)
-    "Product Manager", "Product Management", "Intern", "Internship",
-    "Roadmap", "Stakeholder", "Agile", "Scrum",
+    # Languages
+    "Java", "Python", "SQL",
+    # Backend & APIs
+    "Spring Boot", "Spring", "Spring Reactive", "WebFlux", "RESTful",
+    "REST", "WebSocket", "Microservices", "API", "Backend",
+    # AI & Agentic
+    "Agentic AI", "LLM", "MCP", "Model Context Protocol",
+    # Distributed systems & DBs
+    "Apache Kafka", "Kafka", "MySQL", "Redis", "Elasticsearch",
+    "Distributed Systems",
+    # Cloud / Infra / DevOps
+    "AWS", "Kubernetes", "k8s", "Amazon EKS", "Docker", "Jenkins",
+    "Flyway", "CI/CD", "Cloud",
+    # Observability & Testing
+    "ELK", "Grafana", "Prometheus", "Kibana", "JUnit", "Mockito",
+    "System Design",
+    # Core
+    "Data Structures", "Algorithms", "DSA", "Agile", "Scrum", "Git",
+    # General match helpers
+    "Software Engineer", "Software Development", "Backend Engineer",
+    "Java Developer", "Fresher", "Entry Level", "Junior",
 ]
 
 # ---------------------------------------------------------------------------
 # Location / remote prefs
 # ---------------------------------------------------------------------------
-LOCATIONS       = ["Noida", "Gurugram", "Delhi NCR", "Bangalore", "Hyderabad", "Pune", "Remote"]
+INDIA_CITIES = [
+    "india", "noida", "bangalore", "bengaluru", "hyderabad", "pune",
+    "mumbai", "delhi", "delhi ncr", "ncr", "gurgaon", "gurugram",
+    "chennai", "kolkata", "ahmedabad", "jaipur", "kochi", "blr", "hyd",
+]
+
+REMOTE_KEYWORDS = [
+    "remote", "worldwide", "global", "anywhere", "distributed",
+    "work from home", "wfh", "fully remote",
+]
+
 PRIMARY_LOCATION = "India"
-INCLUDE_REMOTE  = True
-YEARS_EXPERIENCE = 2
+INCLUDE_REMOTE   = True
+YEARS_EXPERIENCE = EXPERIENCE_MAX   # kept for backward compat
 
 # ---------------------------------------------------------------------------
 # Email settings  (set as GitHub Actions secrets — never hardcode here)
