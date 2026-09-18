@@ -6,6 +6,7 @@ on:
     - cron: '30 15 * * *'  # 9:00 PM IST  — evening digest
   workflow_dispatch:        # manually trigger from the Actions tab
 
+
 permissions:
   contents: write
 
