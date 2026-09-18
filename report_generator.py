@@ -34,8 +34,12 @@ def build_html(result: dict) -> str:
     if not sections:
         sections.append("<p>No new matching jobs from open APIs today. Check the search links below.</p>")
 
+    # Mark easy-apply / direct-apply platforms with a badge
+    EASY_APPLY_SITES = {"LinkedIn Easy Apply", "YC Work at a Startup", "Wellfound", "Instahyre", "Dice"}
     link_items = "".join(
-        f'<li><a href="{html.escape(url)}" target="_blank">{html.escape(name)} — today\'s search</a></li>'
+        f'<li><a href="{html.escape(url)}" target="_blank">{html.escape(name)}</a>'
+        f'{"&nbsp;<span class=\"badge\">⚡ Easy Apply</span>" if name in EASY_APPLY_SITES else ""}'
+        f' — today\'s live results</li>'
         for name, url in links.items()
     )
 
@@ -65,6 +69,8 @@ def build_html(result: dict) -> str:
   .links-section {{ margin-top: 32px; padding: 16px; border: 1px solid var(--border); border-radius: 8px; }}
   .links-section ul {{ margin: 8px 0 0 0; padding-left: 20px; }}
   .links-section li {{ margin-bottom: 6px; }}
+  .badge {{ background: #dcfce7; color: #15803d; border-radius: 4px; padding: 1px 6px; font-size: 0.78rem; font-weight: 600; }}
+  @media (prefers-color-scheme: dark) {{ .badge {{ background: #14532d; color: #86efac; }} }}
   footer {{ margin-top: 32px; color: var(--muted); font-size: 0.8rem; }}
 </style>
 </head>

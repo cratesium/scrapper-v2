@@ -2,12 +2,20 @@ name: Daily Job Digest
 
 on:
   schedule:
-    # Runs every day at 03:00 UTC (~8:30 AM IST). Edit the cron to change the time.
+    # Runs every day at 03:00 UTC (~8:30 AM IST). Edit cron to change time.
     - cron: "0 3 * * *"
-  workflow_dispatch: {}   # lets you manually trigger a run from the Actions tab to test
+  workflow_dispatch: {}   # Manually trigger from the Actions tab
 
 permissions:
   contents: write
+
+# ---------------------------------------------------------------------------
+# Required GitHub Actions secrets:
+#   GMAIL_USER          — sender Gmail address (e.g. you@gmail.com)
+#   GMAIL_APP_PASSWORD  — Gmail App Password (16-char, 2FA required)
+#   TO_EMAIL            — recipient(s); comma-separate for multiple addresses
+#                         e.g. "alice@gmail.com,bob@gmail.com"
+# ---------------------------------------------------------------------------
 
 jobs:
   run-scraper:
@@ -28,6 +36,7 @@ jobs:
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          # Supports multiple recipients — comma-separated list in the secret
           TO_EMAIL: ${{ secrets.TO_EMAIL }}
         run: python main.py
 

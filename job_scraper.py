@@ -1,13 +1,24 @@
 """
-Job Scraper - pulls fresh listings from open/legitimate job APIs,
-and generates fresh pre-filled search links for sites that block
-automated scraping (LinkedIn, Naukri, Wellfound, YC Work at a Startup).
+Job Scraper — pulls fresh listings from open/legitimate job APIs,
+and generates pre-filled easy-apply search links for sites that block
+automated scraping (LinkedIn, Naukri, Wellfound, YC Work at a Startup, Dice).
 
-Data sources used (all public, no login/ToS violation):
+Fetched sources (public APIs, no auth required):
   - RemoteOK API
+  - Remotive API
   - Arbeitnow API
+  - Jobicy API
   - We Work Remotely (RSS)
-  - Hacker News "Who's Hiring" (via Algolia HN Search API)
+  - Hacker News "Who's Hiring" (Algolia HN Search API)
+
+Click-through link sources (filtered for easy/one-click apply):
+  - LinkedIn Jobs  (Easy Apply filter)
+  - Naukri.com
+  - Wellfound (AngelList Talent)
+  - YC Work at a Startup
+  - Indeed
+  - Dice.com  (tech-focused, many one-click applications)
+  - Instahyre  (India-focused, many easy-apply roles)
 """
 
 import requests
@@ -22,20 +33,26 @@ import config
 
 @dataclass
 class Job:
-    title: str
-    company: str
+    title:    str
+    company:  str
     location: str
-    url: str
-    source: str
-    posted: str = ""
-    tags: List[str] = field(default_factory=list)
-    score: int = 0
+    url:      str
+    source:   str
+    posted:   str       = ""
+    tags:     List[str] = field(default_factory=list)
+    score:    int       = 0
 
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
 
 def _matches_keywords(text: str) -> bool:
     text_low = text.lower()
-    return any(t.lower() in text_low for t in config.JOB_TITLES) or \
-           any(s.lower() in text_low for s in config.SKILLS)
+    return (
+        any(t.lower() in text_low for t in config.JOB_TITLES) or
+        any(s.lower() in text_low for s in config.SKILLS)
+    )
 
 
 def _score(text: str) -> int:
@@ -50,16 +67,32 @@ def _score(text: str) -> int:
     return score
 
 
+def _top(jobs: List[Job]) -> List[Job]:
+    jobs.sort(key=lambda j: j.score, reverse=True)
+    return jobs[:config.MAX_PER_SOURCE]
+
+
+# ---------------------------------------------------------------------------
+# Fetchers
+# ---------------------------------------------------------------------------
+
 def fetch_remoteok() -> List[Job]:
     jobs = []
     try:
-        r = requests.get("https://remoteok.com/api", headers={"User-Agent": "Mozilla/5.0"}, timeout=15)
+        r = requests.get(
+            "https://remoteok.com/api",
+            headers={"User-Agent": "Mozilla/5.0"},
+            timeout=15,
+        )
         r.raise_for_status()
-        data = r.json()
-        for item in data:
+        for item in r.json():
             if not isinstance(item, dict) or "position" not in item:
                 continue
-            text_blob = f"{item.get('position','')} {' '.join(item.get('tags', []))} {item.get('description','')}"
+            text_blob = (
+                f"{item.get('position', '')} "
+                f"{' '.join(item.get('tags', []))} "
+                f"{item.get('description', '')}"
+            )
             if not _matches_keywords(text_blob):
                 continue
             jobs.append(Job(
@@ -74,8 +107,73 @@ def fetch_remoteok() -> List[Job]:
             ))
     except Exception as e:
         print(f"[RemoteOK] fetch failed: {e}")
-    jobs.sort(key=lambda j: j.score, reverse=True)
-    return jobs[:config.MAX_PER_SOURCE]
+    return _top(jobs)
+
+
+def fetch_remotive() -> List[Job]:
+    """Remotive — free public API, great for remote Java/backend roles."""
+    jobs = []
+    try:
+        r = requests.get(
+            "https://remotive.com/api/remote-jobs",
+            params={"category": "software-dev", "search": "java backend", "limit": 50},
+            timeout=15,
+        )
+        r.raise_for_status()
+        for item in r.json().get("jobs", []):
+            text_blob = (
+                f"{item.get('title', '')} "
+                f"{' '.join(item.get('tags', []))} "
+                f"{item.get('description', '')}"
+            )
+            if not _matches_keywords(text_blob):
+                continue
+            jobs.append(Job(
+                title=item.get("title", "Unknown"),
+                company=item.get("company_name", "Unknown"),
+                location=item.get("candidate_required_location", "Remote") or "Remote",
+                url=item.get("url", "https://remotive.com"),
+                source="Remotive",
+                posted=item.get("publication_date", ""),
+                tags=item.get("tags", []),
+                score=_score(text_blob),
+            ))
+    except Exception as e:
+        print(f"[Remotive] fetch failed: {e}")
+    return _top(jobs)
+
+
+def fetch_jobicy() -> List[Job]:
+    """Jobicy — free public API, strong tech/engineering remote listings."""
+    jobs = []
+    try:
+        r = requests.get(
+            "https://jobicy.com/api/v2/remote-jobs",
+            params={"tag": "java", "count": 50, "industry": "engineering"},
+            timeout=15,
+        )
+        r.raise_for_status()
+        for item in r.json().get("jobs", []):
+            text_blob = (
+                f"{item.get('jobTitle', '')} "
+                f"{item.get('jobIndustry', '')} "
+                f"{item.get('jobExcerpt', '')} "
+                f"{item.get('jobDescription', '')}"
+            )
+            if not _matches_keywords(text_blob):
+                continue
+            jobs.append(Job(
+                title=item.get("jobTitle", "Unknown"),
+                company=item.get("companyName", "Unknown"),
+                location=item.get("jobGeo", "Remote") or "Remote",
+                url=item.get("url", "https://jobicy.com"),
+                source="Jobicy",
+                posted=item.get("pubDate", ""),
+                score=_score(text_blob),
+            ))
+    except Exception as e:
+        print(f"[Jobicy] fetch failed: {e}")
+    return _top(jobs)
 
 
 def fetch_arbeitnow() -> List[Job]:
@@ -83,9 +181,12 @@ def fetch_arbeitnow() -> List[Job]:
     try:
         r = requests.get("https://www.arbeitnow.com/api/job-board-api", timeout=15)
         r.raise_for_status()
-        data = r.json().get("data", [])
-        for item in data:
-            text_blob = f"{item.get('title','')} {' '.join(item.get('tags', []))} {item.get('description','')}"
+        for item in r.json().get("data", []):
+            text_blob = (
+                f"{item.get('title', '')} "
+                f"{' '.join(item.get('tags', []))} "
+                f"{item.get('description', '')}"
+            )
             if not _matches_keywords(text_blob):
                 continue
             jobs.append(Job(
@@ -100,8 +201,7 @@ def fetch_arbeitnow() -> List[Job]:
             ))
     except Exception as e:
         print(f"[Arbeitnow] fetch failed: {e}")
-    jobs.sort(key=lambda j: j.score, reverse=True)
-    return jobs[:config.MAX_PER_SOURCE]
+    return _top(jobs)
 
 
 def fetch_weworkremotely() -> List[Job]:
@@ -114,10 +214,10 @@ def fetch_weworkremotely() -> List[Job]:
         try:
             feed = feedparser.parse(feed_url)
             for entry in feed.entries:
-                text_blob = f"{entry.get('title','')} {entry.get('summary','')}"
+                text_blob = f"{entry.get('title', '')} {entry.get('summary', '')}"
                 if not _matches_keywords(text_blob):
                     continue
-                title = entry.get("title", "Unknown")
+                title   = entry.get("title", "Unknown")
                 company = title.split(":")[0].strip() if ":" in title else "Unknown"
                 jobs.append(Job(
                     title=title,
@@ -130,38 +230,39 @@ def fetch_weworkremotely() -> List[Job]:
                 ))
         except Exception as e:
             print(f"[WWR] fetch failed for {feed_url}: {e}")
-    jobs.sort(key=lambda j: j.score, reverse=True)
-    return jobs[:config.MAX_PER_SOURCE]
+    return _top(jobs)
 
 
 def fetch_hn_whoishiring() -> List[Job]:
-    """Finds the most recent monthly 'Who is Hiring' thread and searches its comments via Algolia HN API."""
+    """Most recent 'Ask HN: Who is Hiring' thread via Algolia HN Search API."""
     jobs = []
     try:
-        search_url = "https://hn.algolia.com/api/v1/search_by_date"
-        params = {"query": "Who is hiring", "tags": "story", "hitsPerPage": 5}
-        r = requests.get(search_url, params=params, timeout=15)
+        r = requests.get(
+            "https://hn.algolia.com/api/v1/search_by_date",
+            params={"query": "Who is hiring", "tags": "story", "hitsPerPage": 5},
+            timeout=15,
+        )
         r.raise_for_status()
-        hits = r.json().get("hits", [])
         thread_id = None
-        for h in hits:
+        for h in r.json().get("hits", []):
             if h.get("title", "").lower().startswith("ask hn: who is hiring"):
                 thread_id = h.get("objectID")
                 break
         if not thread_id:
             return jobs
 
-        comments_url = f"https://hn.algolia.com/api/v1/search"
-        params = {"tags": f"comment,story_{thread_id}", "hitsPerPage": 200}
-        r2 = requests.get(comments_url, params=params, timeout=15)
+        r2 = requests.get(
+            "https://hn.algolia.com/api/v1/search",
+            params={"tags": f"comment,story_{thread_id}", "hitsPerPage": 200},
+            timeout=15,
+        )
         r2.raise_for_status()
-        comments = r2.json().get("hits", [])
-        for c in comments:
-            text = (c.get("comment_text") or "")
+        for c in r2.json().get("hits", []):
+            text = c.get("comment_text") or ""
             if not text or not _matches_keywords(text):
                 continue
-            snippet = text.replace("<p>", " ").replace("</p>", " ")
-            title_line = snippet.strip()[:120].replace("\n", " ")
+            snippet     = text.replace("<p>", " ").replace("</p>", " ")
+            title_line  = snippet.strip()[:120].replace("\n", " ")
             jobs.append(Job(
                 title=title_line + "...",
                 company="(see posting)",
@@ -173,52 +274,138 @@ def fetch_hn_whoishiring() -> List[Job]:
             ))
     except Exception as e:
         print(f"[HN] fetch failed: {e}")
-    jobs.sort(key=lambda j: j.score, reverse=True)
-    return jobs[:config.MAX_PER_SOURCE]
+    return _top(jobs)
 
+
+# ---------------------------------------------------------------------------
+# Search-link generator  (click-through, always current, free/easy apply)
+# ---------------------------------------------------------------------------
 
 def generate_search_links() -> dict:
     """
-    Generates fresh, pre-filled search URLs for sites that can't be
-    safely auto-scraped (login-gated / anti-bot). Click-through, always current.
+    Generates fresh, pre-filled search URLs for sites that can't be safely
+    auto-scraped.  Links are filtered for easy / one-click application where
+    the platform supports it.
     """
-    primary_title = config.JOB_TITLES[0]
-    all_titles_query = " OR ".join(config.JOB_TITLES[:3])
-    today = datetime.date.today().isoformat()
+    primary_title   = config.JOB_TITLES[0]               # "Java Developer"
+    java_query      = "Java Backend Developer"
+    or_query        = " OR ".join(config.JOB_TITLES[:4])
+    yrs             = config.YEARS_EXPERIENCE             # 2
 
     links = {}
 
-    # LinkedIn Jobs search (public search page, no login required to view results list)
+    # ------------------------------------------------------------------
+    # LinkedIn Jobs — Easy Apply filter (f_AL=true) + 24 h + 1-3 yrs exp
+    # Experience levels: 2=Entry, 3=Associate  (covers 0-3 yrs)
+    # ------------------------------------------------------------------
     li_params = {
-        "keywords": all_titles_query,
+        "keywords": java_query,
         "location": config.PRIMARY_LOCATION,
-        "f_TPR": "r86400",  # past 24 hours
+        "f_TPR":    "r86400",       # past 24 hours
+        "f_AL":     "true",         # ✅ Easy Apply only
+        "f_E":      "2,3",          # Entry + Associate level
+        "sortBy":   "DD",           # date descending
     }
-    links["LinkedIn"] = "https://www.linkedin.com/jobs/search/?" + urllib.parse.urlencode(li_params)
+    links["LinkedIn Easy Apply"] = (
+        "https://www.linkedin.com/jobs/search/?" + urllib.parse.urlencode(li_params)
+    )
 
-    # Naukri.com search
-    naukri_keywords = "-".join(primary_title.lower().split())
-    links["Naukri"] = f"https://www.naukri.com/{naukri_keywords}-jobs?experience=1"
+    # ------------------------------------------------------------------
+    # Y Combinator — Work at a Startup
+    # Direct job board; many startups allow 1-click apply via the platform
+    # ------------------------------------------------------------------
+    yc_params = {
+        "role":           "engineer",
+        "skills":         "java",
+        "remote":         "only_remote",
+        "yoe_min":        str(yrs - 1),
+        "yoe_max":        str(yrs + 2),
+    }
+    links["YC Work at a Startup"] = (
+        "https://www.workatastartup.com/jobs?" + urllib.parse.urlencode(yc_params)
+    )
 
-    # Wellfound (AngelList Talent) - role-based search
-    wf_role = primary_title.lower().replace(" ", "-")
-    links["Wellfound"] = f"https://wellfound.com/role/{wf_role}"
+    # ------------------------------------------------------------------
+    # Wellfound (AngelList Talent) — startup jobs, direct apply
+    # ------------------------------------------------------------------
+    wf_params = {
+        "role":       "backend-engineer",
+        "skills":     "java,spring-boot,microservices",
+        "remote":     "true",
+        "locationSlugs": "india",
+    }
+    links["Wellfound"] = (
+        "https://wellfound.com/jobs?" + urllib.parse.urlencode(wf_params)
+    )
 
-    # Y Combinator Work at a Startup
-    yc_params = {"role": primary_title}
-    links["YC Work at a Startup"] = "https://www.workatastartup.com/jobs?" + urllib.parse.urlencode(yc_params)
+    # ------------------------------------------------------------------
+    # Dice.com — tech-focused US/global board; many easy-apply postings
+    # ------------------------------------------------------------------
+    dice_params = {
+        "q":              "Java Backend Developer",
+        "location":       "Remote",
+        "radius":         "30",
+        "radiusUnit":     "mi",
+        "page":           "1",
+        "pageSize":       "20",
+        "filters.postedDate": "ONE_DAY",
+        "language":       "en",
+    }
+    links["Dice"] = (
+        "https://www.dice.com/jobs?" + urllib.parse.urlencode(dice_params)
+    )
 
-    # Indeed (bonus - public search, generally scrape-tolerant for viewing not automation)
-    indeed_params = {"q": primary_title, "l": config.PRIMARY_LOCATION, "fromage": "1"}
-    links["Indeed"] = "https://www.indeed.com/jobs?" + urllib.parse.urlencode(indeed_params)
+    # ------------------------------------------------------------------
+    # Instahyre — India-focused, AI-matched, most listings have easy apply
+    # ------------------------------------------------------------------
+    ih_params = {
+        "designation": "Java Developer",
+        "experience":  f"{yrs - 1},{yrs + 2}",
+    }
+    links["Instahyre"] = (
+        "https://www.instahyre.com/search-jobs/?" + urllib.parse.urlencode(ih_params)
+    )
+
+    # ------------------------------------------------------------------
+    # Naukri.com — largest Indian board
+    # ------------------------------------------------------------------
+    naukri_kw = "-".join(primary_title.lower().split())
+    links["Naukri"] = (
+        f"https://www.naukri.com/{naukri_kw}-jobs?experience={yrs}"
+    )
+
+    # ------------------------------------------------------------------
+    # Indeed — bonus, broad coverage
+    # ------------------------------------------------------------------
+    indeed_params = {
+        "q":       "Java Backend Developer",
+        "l":       config.PRIMARY_LOCATION,
+        "fromage": "1",
+        "explvl":  "entry_level",
+    }
+    links["Indeed"] = (
+        "https://www.indeed.com/jobs?" + urllib.parse.urlencode(indeed_params)
+    )
 
     return links
 
+
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
 
 def run_all() -> dict:
     print("Fetching RemoteOK...")
     remoteok = fetch_remoteok()
     print(f"  -> {len(remoteok)} matches")
+
+    print("Fetching Remotive...")
+    remotive = fetch_remotive()
+    print(f"  -> {len(remotive)} matches")
+
+    print("Fetching Jobicy...")
+    jobicy = fetch_jobicy()
+    print(f"  -> {len(jobicy)} matches")
 
     print("Fetching Arbeitnow...")
     arbeitnow = fetch_arbeitnow()
@@ -237,10 +424,12 @@ def run_all() -> dict:
 
     return {
         "jobs": {
-            "RemoteOK": remoteok,
-            "Arbeitnow": arbeitnow,
-            "We Work Remotely": wwr,
-            "HN Who's Hiring": hn,
+            "RemoteOK":          remoteok,
+            "Remotive":          remotive,
+            "Jobicy":            jobicy,
+            "Arbeitnow":         arbeitnow,
+            "We Work Remotely":  wwr,
+            "HN Who's Hiring":   hn,
         },
         "search_links": links,
         "generated_at": datetime.datetime.utcnow().isoformat() + "Z",
@@ -249,6 +438,6 @@ def run_all() -> dict:
 
 if __name__ == "__main__":
     result = run_all()
-    total = sum(len(v) for v in result["jobs"].values())
+    total  = sum(len(v) for v in result["jobs"].values())
     print(f"\nTotal matched jobs from open APIs: {total}")
     print(f"Search links generated: {list(result['search_links'].keys())}")
