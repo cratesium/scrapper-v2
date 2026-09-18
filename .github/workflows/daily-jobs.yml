@@ -2,8 +2,9 @@ name: Daily Job Scraper
 
 on:
   schedule:
-    - cron: '0 9 * * *'
-  workflow_dispatch: 
+    - cron: '30 3 * * *'   # 9:00 AM IST
+    - cron: '30 15 * * *'  # 9:00 PM IST
+  workflow_dispatch:
 
 jobs:
   scrape-and-email:
