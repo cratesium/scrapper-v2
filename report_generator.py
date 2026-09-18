@@ -36,7 +36,12 @@ def _location_icon(location: str) -> str:
 def _job_row(job) -> str:
     source_badge  = _html.escape(job.source)
     loc_icon      = _location_icon(job.location)
-    src_class     = "src-badge src-linkedin" if job.source == "LinkedIn" else "src-badge"
+    _SRC_CSS = {
+        "LinkedIn":             "src-linkedin",
+        "YC Work at a Startup": "src-yc",
+        "Wellfound":            "src-wellfound",
+    }
+    src_class = f"src-badge {_SRC_CSS.get(job.source, '')}"
     return f"""
       <tr>
         <td class="title"><a href="{_html.escape(job.url)}" target="_blank">{_html.escape(job.title)}</a></td>
@@ -46,7 +51,7 @@ def _job_row(job) -> str:
       </tr>"""
 
 
-_EASY_APPLY = {"LinkedIn Easy Apply", "YC Work at a Startup", "Wellfound", "Instahyre"}
+_EASY_APPLY = {"LinkedIn Easy Apply", "YC Work at a Startup", "Wellfound", "Instahyre", "Naukri"}
 
 
 def _link_pill(name: str, url: str) -> str:
@@ -194,12 +199,14 @@ def build_html(result: dict) -> str:
     .exp-badge {{ background: #1e3a5f; color: #93c5fd; border-color: #1d4ed8; }}
   }}
 
-  /* LinkedIn source badge override */
-  .src-linkedin {{
-    background: #dbeafe; color: #1d4ed8;
-  }}
+  /* Per-source badge colour overrides */
+  .src-linkedin    {{ background: #dbeafe; color: #1d4ed8; }}
+  .src-yc          {{ background: #fff7ed; color: #c2410c; }}
+  .src-wellfound   {{ background: #f0fdf4; color: #15803d; }}
   @media (prefers-color-scheme: dark) {{
-    .src-linkedin {{ background: #1e3a5f; color: #93c5fd; }}
+    .src-linkedin  {{ background: #1e3a5f; color: #93c5fd; }}
+    .src-yc        {{ background: #431407; color: #fb923c; }}
+    .src-wellfound {{ background: #14532d; color: #86efac; }}
   }}
 
   footer {{ margin-top: 40px; color: var(--muted); font-size: 0.78rem; border-top: 1px solid var(--border); padding-top: 12px; }}

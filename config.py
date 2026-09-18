@@ -2,36 +2,56 @@
 Job Search Configuration
 =========================
 Targeted for a Java Backend Developer with 0–2 years of experience.
-Positions: Java Developer + Software Engineer.
+
+Position targets  (each fetched across ALL sources):
+  Java Developer           → 100
+  Software Engineer        → 100
+  Backend Developer        →  60
+  Software Engineer Intern →  40   (≥20 from each source where possible)
+  Intern                   →  30   (≥20 from each source where possible)
+
+  Total cap: 330
+
 Location rules:
   • On-site / hybrid → India only
   • Remote           → anywhere worldwide
-Total digest cap: 100 links.
 """
 
 # ---------------------------------------------------------------------------
 # Position-wise search config
-# Each entry: title searched across ALL sources, capped at its own limit.
 # ---------------------------------------------------------------------------
 SEARCH_POSITIONS = [
-    {"title": "Java Developer",    "limit": 40},
-    {"title": "Software Engineer", "limit": 40},
-    {"title": "Backend Developer", "limit": 20},
+    {"title": "Java Developer",            "limit": 100},
+    {"title": "Software Engineer",         "limit": 100},
+    {"title": "Backend Developer",         "limit":  60},
+    {"title": "Software Engineer Intern",  "limit":  40},
+    {"title": "Developer Intern",          "limit":  30},
 ]
 
-MAX_TOTAL = 100   # hard ceiling across all positions
+MAX_TOTAL = 330   # hard ceiling across all positions
+
+# Per-source target — each scraper tries to return this many per query call.
+# Aggregated over 5 positions → ~100-150 per source in the final digest.
+SOURCE_LIMIT = 30
+
+# ---------------------------------------------------------------------------
+# India : Remote ratio  (remaining slots go to "other" / hybrid / vague)
+# e.g. 0.65 India + 0.30 Remote + 0.05 Other per position bucket
+# ---------------------------------------------------------------------------
+INDIA_RATIO  = 0.65
+REMOTE_RATIO = 0.30
 
 # Only include jobs posted/updated within this window (matches cron cadence)
-FRESHNESS_HOURS = 24   # widened to 24h so LinkedIn & slower boards appear
+FRESHNESS_HOURS = 48   # 48h gives good intern coverage (intern posts are rarer)
 
 # ---------------------------------------------------------------------------
-# Experience target  (used in search-link generation and score boosting)
+# Experience target
 # ---------------------------------------------------------------------------
-EXPERIENCE_MIN = 0    # years
-EXPERIENCE_MAX = 2    # years
+EXPERIENCE_MIN = 0
+EXPERIENCE_MAX = 2
 
 # ---------------------------------------------------------------------------
-# Core skills — used to boost relevance score  (from resume)
+# Core skills — used to boost relevance score (from resume)
 # ---------------------------------------------------------------------------
 SKILLS = [
     # Languages
@@ -55,6 +75,8 @@ SKILLS = [
     # General match helpers
     "Software Engineer", "Software Development", "Backend Engineer",
     "Java Developer", "Fresher", "Entry Level", "Junior",
+    # Intern signals
+    "Intern", "Internship", "Trainee", "Graduate",
 ]
 
 # ---------------------------------------------------------------------------
@@ -64,6 +86,8 @@ INDIA_CITIES = [
     "india", "noida", "bangalore", "bengaluru", "hyderabad", "pune",
     "mumbai", "delhi", "delhi ncr", "ncr", "gurgaon", "gurugram",
     "chennai", "kolkata", "ahmedabad", "jaipur", "kochi", "blr", "hyd",
+    "trivandrum", "thiruvananthapuram", "coimbatore", "indore", "bhopal",
+    "nagpur", "visakhapatnam", "vizag",
 ]
 
 REMOTE_KEYWORDS = [
@@ -76,7 +100,7 @@ INCLUDE_REMOTE   = True
 YEARS_EXPERIENCE = EXPERIENCE_MAX   # kept for backward compat
 
 # ---------------------------------------------------------------------------
-# Email settings  (set as GitHub Actions secrets — never hardcode here)
+# Email settings (set as GitHub Actions secrets — never hardcode here)
 # TO_EMAIL supports comma-separated list: "a@x.com,b@x.com"
 # ---------------------------------------------------------------------------
 import os
