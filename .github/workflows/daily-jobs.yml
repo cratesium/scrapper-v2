@@ -1,38 +1,42 @@
-name: Daily Job Digest
+name: Daily Job Scraper
 
 on:
   schedule:
-    # Runs every day at 03:00 UTC (~8:30 AM IST). Edit cron to change time.
-    - cron: "0 3 * * *"
-  workflow_dispatch: {}   # Manually trigger from the Actions tab
+    - cron: '30 3 * * *'   # 9:00 AM IST  — morning digest
+    - cron: '30 15 * * *'  # 9:00 PM IST  — evening digest
+  workflow_dispatch:        # manually trigger from the Actions tab
+
 
 permissions:
   contents: write
 
 # ---------------------------------------------------------------------------
 # Required GitHub Actions secrets:
-#   GMAIL_USER          — sender Gmail address (e.g. you@gmail.com)
-#   GMAIL_APP_PASSWORD  — Gmail App Password (16-char, 2FA required)
+#   GMAIL_USER          — sender Gmail address  (e.g. you@gmail.com)
+#   GMAIL_APP_PASSWORD  — Gmail App Password    (16-char, 2FA required)
 #   TO_EMAIL            — recipient(s); comma-separate for multiple addresses
 #                         e.g. "alice@gmail.com,bob@gmail.com"
 # ---------------------------------------------------------------------------
 
 jobs:
-  run-scraper:
+  scrape-and-email:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Run job scraper
+      - name: Run Job Scraper
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
@@ -45,5 +49,5 @@ jobs:
           git config --global user.name "job-scraper-bot"
           git config --global user.email "actions@github.com"
           git add reports/
-          git diff --staged --quiet || git commit -m "Daily job digest $(date -u +'%Y-%m-%d')"
+          git diff --staged --quiet || git commit -m "Job digest $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
