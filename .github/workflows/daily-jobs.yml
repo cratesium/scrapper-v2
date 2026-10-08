@@ -55,60 +55,74 @@ jobs:
         run: |
           python main.py
 
-      - name: Commit Updated Report 
+      - name: Commit Updated Report Randomly
+        shell: bash
         run: |
-          git config --global user.name "cratesium"
-          git config --global user.email "cratesium@gmail.com"
-
-          echo "Staging report changes..."
-          git add reports/
-
-          # Exit if there are no changes
-          if git diff --staged --quiet; then
-            echo "No report changes to commit."
-            exit 0
-          fi
-
-          # --------------------------------------------------
-          # First commit: actual report changes
-          # --------------------------------------------------
-          COMMITS=$((RANDOM % 10 + 1))
-
-          echo "======================================"
-          echo " commit count: $COMMITS"
-          echo "======================================"
-
-          git commit \
-            -m "Job digest $(date -u +'%Y-%m-%d %H:%M UTC') [1/$COMMITS]"
-
-          # --------------------------------------------------
-          # Get latest remote changes
-          # --------------------------------------------------
-          git fetch origin main
-
-          # Rebase our report commit on top of latest main
-          git rebase origin/main
-
-          # --------------------------------------------------
-          # Additional empty commits
-          # --------------------------------------------------
-          for ((i=2; i<=COMMITS; i++)); do
-
-            # Random delay between 1–10 seconds
-            DELAY=$((RANDOM % 10 + 1))
-
-            echo "Waiting ${DELAY} seconds before commit $i..."
-            sleep "${DELAY}"
-
+          set -e
+  
+            git config user.name "cratesium"
+            git config user.email "cratesium@gmail.com"
+  
+            echo "=== Checking report changes ==="
+  
+            git status --short
+  
+            git add reports/
+  
+            if git diff --cached --quiet; then
+              echo "No report changes to commit."
+              exit 0
+            fi
+  
+            echo "Report changes detected."
+  
+            # Random number between 1 and 10
+            COMMITS=$((RANDOM % 10 + 1))
+  
+            echo "Random commit count: $COMMITS"
+  
+            # --------------------------------------------------
+            # Commit the actual report changes FIRST
+            # --------------------------------------------------
             git commit \
-              --allow-empty \
-              -m "Job digest $(date -u +'%Y-%m-%d %H:%M UTC') [$i/$COMMITS]"
-
-          done
-
-          # --------------------------------------------------
-          # Push all commits
-          # --------------------------------------------------
-          echo "Pushing $COMMITS commits to main..."
-
-          git push origin HEAD:main
+              -m "Job digest $(date -u +'%Y-%m-%d %H:%M UTC') [1/$COMMITS]"
+  
+            echo "Report changes committed."
+  
+            # --------------------------------------------------
+            # Get latest main
+            # --------------------------------------------------
+            git fetch origin main
+  
+            # --------------------------------------------------
+            # Rebase the report commit on latest main
+            # --------------------------------------------------
+            git rebase origin/main
+  
+            # --------------------------------------------------
+            # Create remaining empty commits
+            # --------------------------------------------------
+            if [ "$COMMITS" -gt 1 ]; then
+  
+              for ((i=2; i<=COMMITS; i++)); do
+  
+                DELAY=$((RANDOM % 10 + 1))
+  
+                echo "Waiting ${DELAY} seconds before commit $i..."
+                sleep "$DELAY"
+  
+                git commit --allow-empty \
+                  -m "Job digest $(date -u +'%Y-%m-%d %H:%M UTC') [$i/$COMMITS]"
+  
+              done
+  
+            fi
+  
+            # --------------------------------------------------
+            # Push
+            # --------------------------------------------------
+            echo "Pushing $COMMITS commits..."
+  
+            git push origin HEAD:main
+  
+            echo "=== Successfully pushed $COMMITS commits ==="D:main
