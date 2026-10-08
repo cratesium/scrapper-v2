@@ -55,16 +55,12 @@ jobs:
         run: |
           python main.py
 
-      # --------------------------------------------------
-      # Commit Updated Reports
-      # Randomly creates 1–10 commits
-      # --------------------------------------------------
-      - name: Commit Updated Report Randomly
+      - name: Commit Updated Report 
         run: |
           git config --global user.name "cratesium"
           git config --global user.email "cratesium@gmail.com"
 
-          # Stage report changes
+          echo "Staging report changes..."
           git add reports/
 
           # Exit if there are no changes
@@ -73,24 +69,29 @@ jobs:
             exit 0
           fi
 
-          # Fetch latest changes from remote
-          git fetch origin main
-
-          # Rebase before creating commits
-          git rebase origin/main
-
-          # Generate random number between 1 and 10
+          # --------------------------------------------------
+          # First commit: actual report changes
+          # --------------------------------------------------
           COMMITS=$((RANDOM % 10 + 1))
 
           echo "======================================"
-          echo "Creating $COMMITS commits"
+          echo " commit count: $COMMITS"
           echo "======================================"
 
-          # First commit contains the actual report changes
           git commit \
             -m "Job digest $(date -u +'%Y-%m-%d %H:%M UTC') [1/$COMMITS]"
 
-          # Create additional empty commits
+          # --------------------------------------------------
+          # Get latest remote changes
+          # --------------------------------------------------
+          git fetch origin main
+
+          # Rebase our report commit on top of latest main
+          git rebase origin/main
+
+          # --------------------------------------------------
+          # Additional empty commits
+          # --------------------------------------------------
           for ((i=2; i<=COMMITS; i++)); do
 
             # Random delay between 1–10 seconds
@@ -105,5 +106,9 @@ jobs:
 
           done
 
+          # --------------------------------------------------
           # Push all commits
+          # --------------------------------------------------
+          echo "Pushing $COMMITS commits to main..."
+
           git push origin HEAD:main
